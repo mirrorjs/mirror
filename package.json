@@ -1,0 +1,69 @@
+{
+  "name": "mirrorx",
+  "version": "0.1.4",
+  "description": "A React framework with minimal API and zero boilerplate.",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "lint": "eslint src test",
+    "build": "rm -rf lib && babel src -d lib --no-comments",
+    "bundle": "webpack && webpack -p --output-filename mirror.min.js"
+  },
+  "main": "./lib/index.js",
+  "keywords": [
+    "framework",
+    "react",
+    "redux",
+    "mirror",
+    "mirrorx",
+    "react-router",
+    "front-end"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mirrorjs/mirror.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "history": "^4.6.1",
+    "prop-types": "^15.5.10",
+    "react-redux": "^4.0.0",
+    "react-router": "^4.1.1",
+    "react-router-dom": "^4.1.1",
+    "react-router-redux": "^5.0.0-alpha.6",
+    "redux": "^3.6.0"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.14.1",
+    "babel-core": "^6.14.1",
+    "babel-eslint": "^7.2.3",
+    "babel-loader": "^7.0.0",
+    "babel-preset-es2015": "^6.14.1",
+    "babel-preset-react": "^6.14.1",
+    "babel-preset-stage-2": "^6.14.1",
+    "eslint": "^4.0.0",
+    "eslint-plugin-react": "^7.1.0",
+    "jest": "^20.0.4",
+    "react": "^15.0.0",
+    "react-dom": "^15.0.0",
+    "webpack": "^2.6.0"
+  },
+  "files": [
+    "lib/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ],
+  "jest": {
+    "modulePaths": [
+      "<rootDir>/src"
+    ],
+    "testRegex": "(/test/.*\\.spec.js)$",
+    "testURL": "http://localhost"
+  }
+}

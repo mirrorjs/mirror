@@ -4,4 +4,6 @@ node_js:
 script:
   - npm run lint
   - npm run test:cov
+after_success:
+  - npm run coveralls
 cache: yarn

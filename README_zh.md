@@ -1,5 +1,7 @@
 # Mirror
 
+[![npm version](https://img.shields.io/npm/v/mirrorx.svg?style=flat-square)](https://www.npmjs.com/package/mirrorx) [![build status](https://img.shields.io/travis/mirrorjs/mirror.svg?style=flat-square)](https://travis-ci.org/mirrorjs/mirror) [![coverage status](https://img.shields.io/coveralls/mirrorjs/mirror.svg?style=flat-square)](https://coveralls.io/github/mirrorjs/mirror?branch=master)
+
 一款简洁、高效、易上手的 React 框架。（Inspired by [dva](https://github.com/dvajs/dva) and [jumpsuit](https://github.com/jumpsuit/jumpsuit)）
 
 > Painless React and Redux.

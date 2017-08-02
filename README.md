@@ -4,7 +4,7 @@
 
 [以中文查看](https://github.com/mirrorjs/mirror/blob/master/README_zh.md)
 
-A simple and powerful React framework with minimal API and zero boilerplate. (Inspired by [dva](https://github.com/dvajs/dva) and [jumpsuit](https://github.com/jumpsuit/jumpsuit))
+A simple and powerful React framework with minimal API and zero boilerplate. (Inspired by [dva](https://github.com/dvajs/dva) and [jumpsate](https://github.com/jumpsuit/jumpstate))
 
 > Painless React and Redux.
 
@@ -33,7 +33,7 @@ You don't have to learn some new things to get started with Mirror, the only req
 
 * **Simple actions, sync or async**
 
-No manually created action types or action creators, no explicitly `dispatch`s, no thunk or saga stuff -- just [call a function to dispatch your actions](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#actions).
+No manually created `action type`s or `action creator`s, no explicitly `dispatch`s, no `redux-thunk` or `redux-saga` or `mobx` -- just [call a function to dispatch your actions](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#actions).
 
 * **Support loading models dynamically**
 
@@ -75,11 +75,17 @@ mirror.model({
   name: 'app',
   initialState: 0,
   reducers: {
-    increment(state) {
-      return state + 1
-    },
-    decrement(state) {
-      return state - 1
+    increment(state) { return state + 1 },
+    decrement(state) { return state - 1 }
+  },
+  effects: {
+    async incrementAsync() {
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve()
+        }, 1000)
+      })
+      actions.app.increment()
     }
   }
 })
@@ -90,14 +96,16 @@ const App = connect(state => {
 })(props => (
     <div>
       <h1>{props.count}</h1>
-      {/* dispatch the action */}
+      {/* dispatch the actions */}
       <button onClick={() => actions.app.decrement()}>-</button>
       <button onClick={() => actions.app.increment()}>+</button>
+      {/* dispatch the async action */}
+      <button onClick={() => actions.app.incrementAsync()}>+ Async</button>
     </div>
   )
 )
 
-// start the app
+// start the app，`render` is the enhanced `ReactDOM.render`
 render(<App/>, document.getElementById('root'))
 ```
 

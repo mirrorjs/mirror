@@ -58,7 +58,7 @@ $ cd my-app
 
 After creating, install Mirror from npm:
 
-```
+```sh
 $ npm i --save mirrorx
 $ npm start
 ```

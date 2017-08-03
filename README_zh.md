@@ -56,7 +56,7 @@ $ cd my-app
 
 创建之后，从 npm 安装 Mirror：
 
-```
+```sh
 $ npm i --save mirrorx
 $ npm start
 ```

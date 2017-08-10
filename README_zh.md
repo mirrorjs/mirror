@@ -206,7 +206,7 @@ render(<App/>, document.getElementById('root'))
 
 ## 指南
 
-查看 [指南](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guides.md)。
+查看 [指南](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guide.md)。
 
 ## API
 

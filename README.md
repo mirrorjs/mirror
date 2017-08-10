@@ -207,7 +207,7 @@ render(<App />, document.getElementById('root'))
 
 ## Guide
 
-See [Guide](https://github.com/mirrorjs/mirror/blob/master/docs/guides.md).
+See [Guide](https://github.com/mirrorjs/mirror/blob/master/docs/guide.md).
 
 ## API
 

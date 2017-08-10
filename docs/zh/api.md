@@ -216,12 +216,12 @@ store.getState()
 
 在 `effects` 中定义的方法接收两个形参：
 
-* `data` - 调用 `actions.<modelName>` 上的方法时所传递的 data，可选。 
+* `data` - 调用 `actions.<modelName>` 上的方法时所传递的 data，可选。
 * `getState` - 实际上就是 `store.getState`，返回当前 action 被 dispatch 前的 store 的数据，同样是可选的。
 
 不过，当在调用 `actions.<modelName>` 上的方法时，你只需要传递上面的 `data` 作为实参即可（如果需要的话）。
 
-**Mirror 强烈推荐使用 `async/await` 来定义 effect。**因为 async 函数会自动返回一个 promise。
+**Mirror 强烈推荐使用 `async/await` 来定义 effect**。因为 async 函数会自动返回一个 promise。
 
 当然了，你也可以使用直白的 `Promise`：
 

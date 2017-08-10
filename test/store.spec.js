@@ -81,7 +81,7 @@ describe('create store', () => {
     const store = createStore([model])
 
     store.dispatch({
-      type: 'app.add',
+      type: 'app/add',
       data: 1
     })
 

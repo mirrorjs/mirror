@@ -89,8 +89,8 @@ mirror.model({
 
 执行上述代码，Mirror 实际上做了以下 3 件事情：
 
-1. 创建一个 [Redux reducer](http://redux.js.org/docs/basics/Reducers.html)；
-2. 创建一个 [Redux action](http://redux.js.org/docs/basics/Actions.html)，这个 action 会被上面的 reducer 处理；
+1. 创建一个 [reducer](http://redux.js.org/docs/basics/Reducers.html)；
+2. 创建一个 [action tye](http://redux.js.org/docs/basics/Actions.html)（本例中是 `app/add`），这个 action 会被上面的 reducer 处理；
 3. 在 `actions.<modelName>` 上添加一个方法，该方法的名称与 `reducers` 中的方法名完全一致，当调用 `actions.<modelName>` 中的这个方法时，上面创建的 `action` 会被 dispatch。
 
 同时我们也可以看到 model 的 `name` 的另一个用处：
@@ -104,7 +104,12 @@ typeof actions.app.add
 // 'function'
 
 actions.app.add(1)
-// 将会使用 `add(0, 1)` 返回的值更新 state
+// 等同于：
+// dispatch({
+//   type: 'app/add',
+//   data: 1
+// })
+
 
 // ...
 store.getState()
@@ -191,6 +196,15 @@ mirror.model({
 
 ```js
 // ...
+
+// 首先，dispatch action：
+// dispatch({
+//   type: 'app/myEffect',
+//   data: 10
+// })
+//
+// 然后，调用函数：
+// effects.myEffect(10)
 actions.app.myEffect(10)
 
 // ...
@@ -268,6 +282,21 @@ effects: {
 不但不需要手动创建 action，你也不需要手动 dispatch action。如果你想要一个 action 以及处理这个 action 的 reducer，你完全不需要先定义一个 `action type`（或者`action creator`），再定义一个处理它的 `reducer`。根本不用这么麻烦， 你只管往 `reducers` 对象里扔一个 reducer 就好了，剩下的交给 Mirror 处理。
 
 这样的好处是，你不需要在不同的文件和目录间跳来跳去去决定到底哪个 action 该由哪个 reducer 来处理了。
+
+例如，执行这段代码：
+
+```js
+actions.app.add(1)
+```
+
+完全等同于这段代码：
+
+```js
+dispatch({
+  type: 'app/add',
+  data: 1
+})
+```
 
 而且，使用全局的 `actions` 对象来处理 Redux 的 action，不同组件或者模块间的“依赖关系”也非常明显，而且更不易出错：
 

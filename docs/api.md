@@ -88,8 +88,8 @@ mirror.model({
 
 Execute the code above, Mirror will do 3 things behind the scenes:
 
-1. Create a [Redux reducer](http://redux.js.org/docs/basics/Reducers.html);
-2. Create a [Redux action](http://redux.js.org/docs/basics/Actions.html), which will be captured by the created reducer;
+1. Create a [reducer](http://redux.js.org/docs/basics/Reducers.html);
+2. Create a [action type](http://redux.js.org/docs/basics/Actions.html) (`app/add` in this case), which will be captured by the created reducer;
 3. Add a function whose name is the reducer's name under `actions.<modelName>` object. This function, when called, will `dispatch` the very action created above.
 
 Here, we can see that model's `name` has another usage:
@@ -103,7 +103,12 @@ typeof actions.app.add
 // 'function'
 
 actions.app.add(1)
-// Will update the state using value returned by `add(0, 1)`.
+// Same as:
+//
+// dispatch({
+//   type: 'app/add',
+//   data: 1
+// })
 
 // ...
 store.getState()
@@ -183,10 +188,24 @@ mirror.model({
 })
 ```
 
-Now, `actions.app` will have 2 methods:  `actions.app.add` and `actions.app.myEffect`. There is no magic here, calling `actions.app.myEffect` will run the exact code in `effects.myEffect`:
+Now, `actions.app` will have 2 methods: 
+
+* `actions.app.add`
+* `actions.app.myEffect`
+
+There is no magic here, calling `actions.app.myEffect` will dispatch an action and run the exact code in `effects.myEffect`:
 
 ```js
 // ...
+
+// First, dispatch the action:
+// dispatch({
+//   type: 'app/myEffect',
+//   data: 10
+// })
+//
+// Second, invoke the method:
+// effects.myEffect(10)
 actions.app.myEffect(10)
 
 // ...
@@ -265,6 +284,21 @@ In Mirror, all actions and effects are generated automatically and "namespacedâ€
 You don't have to explicitly create and dispatch any action at all. If you want to create an `action` and a `reducer` to handle it, don't bother to add an `action type constant`(or an `action creator`), and then add a `reducer`, just throw a reducer in `reducers`, that's all.
 
 Thus, you don't have to jump through files or directories to determine which action type should be handled by which reducer.
+
+For example, run:
+
+```js
+actions.app.add(1)
+```
+
+Is exactly the same as the following code:
+
+```js
+dispatch({
+  type: 'app/add',
+  data: 1
+})
+```
 
 Plus, using this global `actions` to handle `Redux` actions, you can easily tell the "dependencies" between different modules:
 

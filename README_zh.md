@@ -6,41 +6,136 @@
 
 > Painless React and Redux.
 
-* [简介](#简介)
-* [指南](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guides.md)
-  * [状态管理](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guides.md#状态管理)
-  * [路由](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guides.md#路由)
-  * [启动和渲染](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guides.md#启动和渲染)
-  * [Hook](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guides.md#hook)
-* [快速开始](#快速开始)
-* [示例项目](#示例项目)
-* [API](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md)
-* [FAQ](#faq)
+## 为什么？
 
-## 简介
+我们热爱 React 和 Redux。但是，Redux 中有太多的[样板文件](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md)，需要很多的重复劳动，这一点令人沮丧；更别提在实际的 React 应用中，还要集成 `react-router` 的路由功能了。
 
-Mirror 是一款基于 [React](https://facebook.github.io/react)，[Redux](http://redux.js.org/docs/introduction/) 和 [react-router](https://github.com/ReactTraining/react-router) 的前端框架。作为一个框架，Mirror 提供了构建 React 应用所需的一切，包括状态管理、路由等。更重要的是，Mirror 概念简单，易于使用：
+一个典型的 React & Redux 应用看起来像下面这样：
 
-* **极简 API**
+#### `actions.js`
 
-在 Mirror 中，只有 [4 个新 API](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md)，其他仅有的几个 API 都来自 `React`、`Redux` 以及 `react-router`，比如 `render` 和 `connect`（当然，经过封装和强化）。
+```js
+export const ADD_TODO = 'todos/add'
+export const COMPLETE_TODO = 'todos/complete'
 
-* **易于上手**
+export function addTodo(text) {
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
 
-你不必学习一些炫酷的新概念就能使用 Mirror，只需要对 `React`、`Redux` 以及 `react-router` 有一个基本的了解即可（可以查看 [Redux Docs](http://redux.js.org/docs/introduction/) 和 [react-router Docs](https://github.com/ReactTraining/react-router) 了解更多）。不仅如此，Mirror 对这些已有概念的处理更为简单，让你用起来更加得心应手。你甚至可以从[第一行代码](#快速开始)开始写你的业务逻辑。
+export function completeTodo(id) {
+  return {
+    type: COMPLETE_TODO,
+    id
+  }
+}
+```
 
-* **Redux action 从未如此简单**
+#### `reducers.js`
 
-无需手动创建 `action type` 或者 `action creator`，无需明确调用 `dispatch` 方法，无需使用 `redux-thunk` 或者 `redux-saga` 或者 `mobx` 来处理异步 action——只需[调用一个函数即可 `dispatch` 你的 `action`](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md#actions)，无论是同步还是异步的 action。
+```js
+import { ADD_TODO, COMPLETE_TODO } from './actions'
 
-* **支持动态创建 model**
+let nextId = 0
 
-在大型应用中，Redux state 很有可能不是同时创建的，也就是说你很可能需要动态地引入一些 reducer 和 state（对应 Mirror 中的 `model`），那么 Mirror 天然地支持这种动态引入，而且[非常简单](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md#rendercomponent-container-callback)。
+export default function todos(state = [], action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return [...state, {text: action.text, id: nextId++}]
+    case COMPLETE_TODO:
+      return state.map(todo => {
+        if (todo.id === action.id) todo.completed = true
+        return todo
+      })
+    default:
+      return state
+  }
+}
+```
 
-* **强大的 hook 机制**
+#### `Todos.js`
 
-如果你想监测每一个被 dispatch 的 action，没问题！Mirror 提供了这种 [hook 的能力](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md#mirrorhookaction-getstate-)，让你随时监控每一个 action，做任何你想做的事情。
+```js
+import { addTodo, completeTodo } from './actions'
 
+// ...
+
+// 在某个事件处理函数中
+dispatch(addTodo('a new todo'))
+
+// 在另一个事件处理函数中
+dispatch(completeTodo(42))
+
+// ...
+```
+
+看起来是不是有点繁冗？这还是没考虑 [`异步 action`](http://redux.js.org/docs/advanced/AsyncActions.html) 的情况呢！如果要处理`异步 action`，还需要引入 middleware（比如 `redux-thunk` 或者 `redux-saga`），那么代码就更繁琐了。
+
+
+### 用 Mirror 重写
+
+#### `Todos.js`
+
+```js
+import mirror, { actions } from 'mirrorx'
+
+let nextId = 0
+
+mirror.model({
+  name: 'todos',
+  initialState: [],
+  reducers: {
+    add(state, text) {
+      return [...state, {text, id: nextId++}]
+    },
+    complete(state, id) {
+      return state.map(todo => {
+        if (todo.id === id) todo.completed = true
+        return todo
+      })
+    }
+  }
+})
+
+// ...
+
+// 在某个事件处理函数中
+actions.todos.add('a new todo')
+
+// 在另一个事件处理函数中
+actions.todos.complete(42)
+
+// ...
+```
+
+是不是就简单很多了？只需一个方法，即可定义所有的 `action` 和 `reducer`（以及 `异步 action`）！
+
+而且，这行代码：
+
+```js
+actions.todos.add('a new todo')
+```
+
+完全等同于这行代码：
+
+```js
+dispatch({
+  type: 'todos/add',
+  text: 'a new todo'
+})
+```
+
+简洁又高效。
+
+## 特性
+
+* 极简 API（只有 4 个新 API）
+* 易于上手
+* Redux action 从未如此简单
+* 支持动态创建 model
+* 强大的 hook 机制
 
 ## 快速开始
 
@@ -51,12 +146,12 @@ Mirror 是一款基于 [React](https://facebook.github.io/react)，[Redux](http:
 ```sh
 $ npm i -g create-react-app
 $ create-react-app my-app
-$ cd my-app
 ```
 
 创建之后，从 npm 安装 Mirror：
 
 ```sh
+$ cd my-app
 $ npm i --save mirrorx
 $ npm start
 ```
@@ -109,6 +204,14 @@ render(<App/>, document.getElementById('root'))
 
 ### [Demo](https://www.webpackbin.com/bins/-Kmdm2zpS4JBvzbKBbIc)
 
+## 指南
+
+查看 [指南](https://github.com/mirrorjs/mirror/blob/master/docs/zh/guides.md)。
+
+## API
+
+查看 [API 文档](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md)。
+
 ## 示例项目
 
 * [Counter](https://github.com/mirrorjs/mirror/blob/master/examples/counter)
@@ -117,15 +220,15 @@ render(<App/>, document.getElementById('root'))
 
 ## FAQ
 
-##### 是否支持 [Redux DevTools 扩展](https://github.com/zalmoxisus/redux-devtools-extension)？
+#### 是否支持 [Redux DevTools 扩展](https://github.com/zalmoxisus/redux-devtools-extension)？
 
 支持。
 
-##### 是否可以使用额外的 Redux middleware？
+#### 是否可以使用额外的 Redux middleware？
 
 可以，在 `mirror.defaults` 接口中指定即可，具体可查看文档。
 
-##### Mirror 用的是什么版本的 react-router？
+#### Mirror 用的是什么版本的 react-router？
 
 react-router 4.x。
 

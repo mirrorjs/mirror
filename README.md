@@ -2,49 +2,143 @@
 
 [![npm version](https://img.shields.io/npm/v/mirrorx.svg?style=flat-square)](https://www.npmjs.com/package/mirrorx) [![build status](https://img.shields.io/travis/mirrorjs/mirror.svg?style=flat-square)](https://travis-ci.org/mirrorjs/mirror) [![coverage status](https://img.shields.io/coveralls/mirrorjs/mirror.svg?style=flat-square)](https://coveralls.io/github/mirrorjs/mirror?branch=master)
 
-[以中文查看](https://github.com/mirrorjs/mirror/blob/master/README_zh.md)
+[查看中文](https://github.com/mirrorjs/mirror/blob/master/README_zh.md)
 
 A simple and powerful React framework with minimal API and zero boilerplate. (Inspired by [dva](https://github.com/dvajs/dva) and [jumpsate](https://github.com/jumpsuit/jumpstate))
 
 > Painless React and Redux.
 
-* [Introduction](#introduction)
-* [Guides](https://github.com/mirrorjs/mirror/blob/master/docs/guides.md)
-  * [State management](https://github.com/mirrorjs/mirror/blob/master/docs/guides.md#state-management)
-  * [Routing](https://github.com/mirrorjs/mirror/blob/master/docs/guides.md#routing)
-  * [Rendering](https://github.com/mirrorjs/mirror/blob/master/docs/guides.md#rendering)
-  * [Hooks](https://github.com/mirrorjs/mirror/blob/master/docs/guides.md#hooks)
-* [Get Started](#get-started)
-* [Examples](#examples)
-* [API](https://github.com/mirrorjs/mirror/blob/master/docs/api.md)
-* [FAQ](#faq)
+## Why?
 
-## Introduction
+We love React and Redux. But it's frustrating that there are [too much boilerplates](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md) in Redux, not to mention integrating `react-router` in real-world React apps. 
 
-Mirror is a front-end framework based on [React](https://facebook.github.io/react), [Redux](http://redux.js.org/docs/introduction/) and [react-router](https://github.com/ReactTraining/react-router). It encapsulates *state management*, *routing* and other essential things to build web apps together in very few methods, and makes it much easier to use:
+Typically, a React & Redux app would look like the following:
 
-* **Minimal API**
+#### `actions.js`
 
-Mirror has very minimal APIs, only [4 of them are newly introduced](https://github.com/mirrorjs/mirror/blob/master/docs/api.md), the rest are all of existed ones from `React` or `Redux`, or `react-router`, like `render` and `connect`(although most of them are enhanced).
+```js
+export const ADD_TODO = 'todos/add'
+export const COMPLETE_TODO = 'todos/complete'
 
-* **Easy to start**
+export function addTodo(text) {
+  return {
+    type: ADD_TODO,
+    text
+  }
+}
 
-You don't have to learn some new things to get started with Mirror, the only requirement is a basic understanding of `React`, `Redux` and `react-router`, you can learn more from the [Redux Docs](http://redux.js.org/docs/introduction/) and [react-router Docs](https://github.com/ReactTraining/react-router). In fact, You can start writing your app from [the first line of your code](#get-started).
+export function completeTodo(id) {
+  return {
+    type: COMPLETE_TODO,
+    id
+  }
+}
+```
 
-* **Simple actions, sync or async**
+#### `reducers.js`
 
-No manually created `action type`s or `action creator`s, no explicitly `dispatch`s, no `redux-thunk` or `redux-saga` or `mobx` -- just [call a function to dispatch your actions](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#actions).
+```js
+import { ADD_TODO, COMPLETE_TODO } from './actions'
 
-* **Support loading models dynamically**
+let nextId = 0
 
-In large apps, it's very likely that not all `reducer`s and `state`s(`model`s) are defined the same time. In this case you may need to dynamically inject a model into your app's store. Mirror provides a [very simple way](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#rendercomponent-container-callback) to do that.
+export default function todos(state = [], action) {
+  switch (action.type) {
+    case ADD_TODO:
+      return [...state, {text: action.text, id: nextId++}]
+    case COMPLETE_TODO:
+      return state.map(todo => {
+        if (todo.id === action.id) todo.completed = true
+        return todo
+      })
+    default:
+      return state
+  }
+}
+```
 
-* **Full-featured hook mechanism**
+#### `Todos.js`
 
-[Hooks](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#mirrorhookaction-getstate-) give you the power to monitor every `Redux` action you dispatched, and do whatever you want.
+```js
+import { addTodo, completeTodo } from './actions'
 
+// ...
 
-## Get Started
+// somewhere in an event handler
+dispatch(addTodo('a new todo'))
+
+// in another event handler
+dispatch(completeTodo(42))
+
+// ...
+```
+
+Note that [`async actions`](http://redux.js.org/docs/advanced/AsyncActions.html) are not covered here, otherwise the code will looks more tedious, 'cause you have to import middlewares like `redux-thunk` or `redux-saga` to handle them.
+
+### Rewrite with Mirror
+
+#### `Todos.js`
+
+```js
+import mirror, { actions } from 'mirrorx'
+
+let nextId = 0
+
+mirror.model({
+  name: 'todos',
+  initialState: [],
+  reducers: {
+    add(state, text) {
+      return [...state, {text, id: nextId++}]
+    },
+    complete(state, id) {
+      return state.map(todo => {
+        if (todo.id === id) todo.completed = true
+        return todo
+      })
+    }
+  }
+})
+
+// ...
+
+// somewhere in an event handler
+actions.todos.add('a new todo')
+
+// in another event handler
+actions.todos.complete(42)
+
+// ...
+```
+
+Look, only one method to handle `actions` and `reducers`(and `async actions`)!
+
+And, the following code:
+
+```js
+actions.todos.add('a new todo')
+```
+
+Is exactly the same as: 
+
+```js
+dispatch({
+  type: 'todos/add',
+  text: 'a new todo'
+})
+```
+
+Efficient and simple.
+
+## Features
+
+* Minimal API(only 4 newly introduced)
+* Easy to start
+* Actions done easy, sync or async
+* Support loading models dynamically
+* Full-featured hook mechanism
+
+## Getting Started
 
 ### Creating an App
 
@@ -53,12 +147,12 @@ Use [create-react-app](https://github.com/facebookincubator/create-react-app) to
 ```sh
 $ npm i -g create-react-app
 $ create-react-app my-app
-$ cd my-app
 ```
 
 After creating, install Mirror from npm:
 
 ```sh
+$ cd my-app
 $ npm i --save mirrorx
 $ npm start
 ```
@@ -70,7 +164,7 @@ import React from 'react'
 import mirror, {actions, connect, render} from 'mirrorx'
 
 // declare Redux state, reducers and actions,
-// all actions will be added to `actions` object from mirror
+// all actions will be added to `actions`.
 mirror.model({
   name: 'app',
   initialState: 0,
@@ -105,11 +199,19 @@ const App = connect(state => {
   )
 )
 
-// start the app，`render` is the enhanced `ReactDOM.render`
-render(<App/>, document.getElementById('root'))
+// start the app，`render` is an enhanced `ReactDOM.render`
+render(<App />, document.getElementById('root'))
 ```
 
 ### [Demo](https://www.webpackbin.com/bins/-Kmdm2zpS4JBvzbKBbIc)
+
+## Guide
+
+See [Guide](https://github.com/mirrorjs/mirror/blob/master/docs/guides.md).
+
+## API
+
+See [API Reference](https://github.com/mirrorjs/mirror/blob/master/docs/api.md).
 
 ## Examples
 
@@ -120,15 +222,15 @@ render(<App/>, document.getElementById('root'))
 
 ## FAQ
 
-##### Does Mirror support [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)?
+#### Does Mirror support [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)?
 
 Yes.
 
-##### Can I use extra Redux middlewares?
+#### Can I use extra Redux middlewares?
 
 Yes, speicify them in `mirror.defaults`, learn more from the Docs.
 
-##### Which version of react-router does Mirror use?
+#### Which version of react-router does Mirror use?
 
 react-router v4.
 

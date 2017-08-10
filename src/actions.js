@@ -1,7 +1,7 @@
 import {dispatch} from './middleware'
 import {addEffect} from './effects'
 
-const SEP = '.'
+const SEP = '/'
 
 export const actions = {}
 

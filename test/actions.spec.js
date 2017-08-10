@@ -107,8 +107,8 @@ describe('global actions', () => {
     })
 
     expect(effects).toBeInstanceOf(Object)
-    expect(Object.keys(effects)).toEqual(['app.myEffect'])
-    expect(effects['app.myEffect']).toBeInstanceOf(Function)
+    expect(Object.keys(effects)).toEqual(['app/myEffect'])
+    expect(effects['app/myEffect']).toBeInstanceOf(Function)
   })
 
   it('should add action by specifying effects', () => {

@@ -88,10 +88,10 @@ describe('the hook method', () => {
     createStore([model])
 
     const unhook = mirror.hook((action, getState) => {
-      if (action.type === 'app.add') {
+      if (action.type === 'app/add') {
         log.push('add')
       }
-      if (action.type === 'app.myEffect') {
+      if (action.type === 'app/myEffect') {
         log.push('myEffect')
       }
       state = getState().app

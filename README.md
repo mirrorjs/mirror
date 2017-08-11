@@ -10,125 +10,22 @@ A simple and powerful React framework with minimal API and zero boilerplate. (In
 
 ## Why?
 
-We love React and Redux. But it's frustrating that there are [too much boilerplates](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md) in Redux, not to mention integrating `react-router` in real-world React apps. 
+We love React and Redux. 
 
-Typically, a React & Redux app would look like the following:
+A typical React/Redux app looks like the following:
 
-#### `actions.js`
+* An `actions/` directory to manually create all `action type`s (or `action creator`s)
+* A `reducers/` directory and tons of `switch` clause to capture all `action type`s
+* Apply middlewares to handle `async action`s
+* Explicitly invoking `dispatch` method to dispatch all actions
+* Manually creating `history` to router and/or sync with store
+* Invoking methods in `history` or dispatching actions to programmatically changing routes
 
-```js
-export const ADD_TODO = 'todos/add'
-export const COMPLETE_TODO = 'todos/complete'
+The problem? [Too much boilerplates](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md) and a little bit tedious.
 
-export function addTodo(text) {
-  return {
-    type: ADD_TODO,
-    text
-  }
-}
+In fact, most part of the above steps could be simplified. Like, create `action`s and `reducer`s in a single method, or dispacth both sync and async actions by simply invoking a function without extra middleware, or define routes without caring about `history`, etc.
 
-export function completeTodo(id) {
-  return {
-    type: COMPLETE_TODO,
-    id
-  }
-}
-```
-
-#### `reducers.js`
-
-```js
-import { ADD_TODO, COMPLETE_TODO } from './actions'
-
-let nextId = 0
-
-export default function todos(state = [], action) {
-  switch (action.type) {
-    case ADD_TODO:
-      return [...state, {text: action.text, id: nextId++}]
-    case COMPLETE_TODO:
-      return state.map(todo => {
-        if (todo.id === action.id) todo.completed = true
-        return todo
-      })
-    default:
-      return state
-  }
-}
-```
-
-#### `Todos.js`
-
-```js
-import { addTodo, completeTodo } from './actions'
-
-// ...
-
-// somewhere in an event handler
-dispatch(addTodo('a new todo'))
-
-// in another event handler
-dispatch(completeTodo(42))
-
-// ...
-```
-
-Note that [`async actions`](http://redux.js.org/docs/advanced/AsyncActions.html) are not covered here, otherwise the code will looks more tedious, 'cause you have to import middlewares like `redux-thunk` or `redux-saga` to handle them.
-
-### Rewrite with Mirror
-
-#### `Todos.js`
-
-```js
-import mirror, { actions } from 'mirrorx'
-
-let nextId = 0
-
-mirror.model({
-  name: 'todos',
-  initialState: [],
-  reducers: {
-    add(state, text) {
-      return [...state, {text, id: nextId++}]
-    },
-    complete(state, id) {
-      return state.map(todo => {
-        if (todo.id === id) todo.completed = true
-        return todo
-      })
-    }
-  }
-})
-
-// ...
-
-// somewhere in an event handler
-actions.todos.add('a new todo')
-
-// in another event handler
-actions.todos.complete(42)
-
-// ...
-```
-
-Look, only one method to handle `actions` and `reducers`(and `async actions`)!
-
-And, the following code:
-
-```js
-actions.todos.add('a new todo')
-```
-
-Is exactly the same as: 
-
-```js
-dispatch({
-  type: 'todos/add',
-  text: 'a new todo'
-})
-```
-
-Efficient and simple.
+That's exactly what Mirror does, encapsulates the tedious or repetitive work in very few APIs to offer a high level abstraction with efficiency and simplicity, and without breaking the pattern.
 
 ## Features
 

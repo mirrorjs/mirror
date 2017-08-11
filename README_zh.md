@@ -8,126 +8,22 @@
 
 ## 为什么？
 
-我们热爱 React 和 Redux。但是，Redux 中有太多的[样板文件](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md)，需要很多的重复劳动，这一点令人沮丧；更别提在实际的 React 应用中，还要集成 `react-router` 的路由功能了。
+我们热爱 React 和 Redux。
 
-一个典型的 React & Redux 应用看起来像下面这样：
+一个典型的 React/Redux 应用看起来像下面这样：
 
-#### `actions.js`
+* 一个 `actions/` 目录用来手动创建所有的 `action type`（或者 `action creator`）；
+* 一个 `reducers/` 目录以及无数的 `switch` 来捕获所有的 `action type`；
+* 必须要依赖 middleware 才能处理 `异步 action`；
+* 明确调用 `dispatch` 方法来 dispatch 所有的 action
+* 手动创建 `history` 对象关联路由组件，可能还需要与 store 同步；
+* 调用 `history` 上的方法或者 dispatch action 来手动更新路由；
 
-```js
-export const ADD_TODO = 'todos/add'
-export const COMPLETE_TODO = 'todos/complete'
+存在的问题？太多的 [样板文件](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md) 以及繁琐甚至重复的劳动。
 
-export function addTodo(text) {
-  return {
-    type: ADD_TODO,
-    text
-  }
-}
+实际上，上述大部分操作都是可以简化的。比如，在单个 API 中创建所有的 `action` 和 `reducer`；比如，简单地调用一个函数来 dispatch 所有的同步和异步 action，且不需要额外引入 middleware；再比如，使用路由的时候只需要关心定义具体的路由，不用去关心 `history` 对象，等等。
 
-export function completeTodo(id) {
-  return {
-    type: COMPLETE_TODO,
-    id
-  }
-}
-```
-
-#### `reducers.js`
-
-```js
-import { ADD_TODO, COMPLETE_TODO } from './actions'
-
-let nextId = 0
-
-export default function todos(state = [], action) {
-  switch (action.type) {
-    case ADD_TODO:
-      return [...state, {text: action.text, id: nextId++}]
-    case COMPLETE_TODO:
-      return state.map(todo => {
-        if (todo.id === action.id) todo.completed = true
-        return todo
-      })
-    default:
-      return state
-  }
-}
-```
-
-#### `Todos.js`
-
-```js
-import { addTodo, completeTodo } from './actions'
-
-// ...
-
-// 在某个事件处理函数中
-dispatch(addTodo('a new todo'))
-
-// 在另一个事件处理函数中
-dispatch(completeTodo(42))
-
-// ...
-```
-
-看起来是不是有点繁冗？这还是没考虑 [`异步 action`](http://redux.js.org/docs/advanced/AsyncActions.html) 的情况呢！如果要处理`异步 action`，还需要引入 middleware（比如 `redux-thunk` 或者 `redux-saga`），那么代码就更繁琐了。
-
-
-### 用 Mirror 重写
-
-#### `Todos.js`
-
-```js
-import mirror, { actions } from 'mirrorx'
-
-let nextId = 0
-
-mirror.model({
-  name: 'todos',
-  initialState: [],
-  reducers: {
-    add(state, text) {
-      return [...state, {text, id: nextId++}]
-    },
-    complete(state, id) {
-      return state.map(todo => {
-        if (todo.id === id) todo.completed = true
-        return todo
-      })
-    }
-  }
-})
-
-// ...
-
-// 在某个事件处理函数中
-actions.todos.add('a new todo')
-
-// 在另一个事件处理函数中
-actions.todos.complete(42)
-
-// ...
-```
-
-是不是就简单很多了？只需一个方法，即可定义所有的 `action` 和 `reducer`（以及 `异步 action`）！
-
-而且，这行代码：
-
-```js
-actions.todos.add('a new todo')
-```
-
-完全等同于这行代码：
-
-```js
-dispatch({
-  type: 'todos/add',
-  text: 'a new todo'
-})
-```
-
-简洁又高效。
+这正是 Mirror 的使命，用极少数的 API 封装所有繁琐甚至重复的工作，提供一种简洁高效的更高级抽象，同时保持原有的开发模式。
 
 ## 特性
 

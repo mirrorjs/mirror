@@ -474,7 +474,7 @@ mirror.model({
 
 const App = connect(({foo, bar}) => {
   return {foo, bar}
-})(() => {
+})(props => {
   return (
     <div>
       <div>{props.foo}</div>

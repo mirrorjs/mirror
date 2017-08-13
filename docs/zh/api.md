@@ -1,9 +1,16 @@
 # API
 
 * [mirror.model](#mirrormodelname-initialstate-reducers-effects)
+  * [`name`](#-name)
+  * [`initialState`](#-initialState)
+  * [`reducers`](#-reducers)
+  * [`effects`](#-effects)
 * [actions](#actions)
 * [mirror.hook](#mirrorhookaction-getstate-)
 * [mirror.defaults](#mirrordefaultsoptions)
+  * [`initialState`](#-optionsinitialstate)
+  * [`historyMode`](#-optionshistorymode)
+  * [`middlewares`](#-optionsmiddlewares)
 * [connect](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [render](#rendercomponent-container-callback)
 * [Router](#router)

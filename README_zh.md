@@ -15,7 +15,7 @@
 * 一个 `actions/` 目录用来手动创建所有的 `action type`（或者 `action creator`）；
 * 一个 `reducers/` 目录以及无数的 `switch` 来捕获所有的 `action type`；
 * 必须要依赖 middleware 才能处理 `异步 action`；
-* 明确调用 `dispatch` 方法来 dispatch 所有的 action
+* 明确调用 `dispatch` 方法来 dispatch 所有的 action；
 * 手动创建 `history` 对象关联路由组件，可能还需要与 store 同步；
 * 调用 `history` 上的方法或者 dispatch action 来手动更新路由；
 

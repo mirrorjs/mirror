@@ -10,16 +10,16 @@ A simple and powerful React framework with minimal API and zero boilerplate. (In
 
 ## Why?
 
-We love React and Redux. 
+We love React and Redux.
 
 A typical React/Redux app looks like the following:
 
 * An `actions/` directory to manually create all `action type`s (or `action creator`s)
 * A `reducers/` directory and tons of `switch` clause to capture all `action type`s
 * Apply middlewares to handle `async action`s
-* Explicitly invoking `dispatch` method to dispatch all actions
-* Manually creating `history` to router and/or sync with store
-* Invoking methods in `history` or dispatching actions to programmatically changing routes
+* Explicitly invoke `dispatch` method to dispatch all actions
+* Manually create `history` to router and/or sync with store
+* Invoke methods in `history` or dispatch actions to programmatically changing routes
 
 The problem? [Too much boilerplates](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md) and a little bit tedious.
 

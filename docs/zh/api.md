@@ -585,5 +585,5 @@ render(
 , document.getElementById('root'))
 ```
 
-想了解更多 `Router` 相关的信息，你可以查看 Mirror 提供的 [simple-router 示例项目](examples/simple-router)，还有 [react-router 官方文档](https://github.com/ReactTraining/react-router/tree/master/packages/react-router)。
+想了解更多 `Router` 相关的信息，你可以查看 Mirror 提供的 [simple-router 示例项目](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router)，还有 [react-router 官方文档](https://github.com/ReactTraining/react-router/tree/master/packages/react-router)。
 

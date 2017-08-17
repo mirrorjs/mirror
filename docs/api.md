@@ -578,5 +578,5 @@ render(
 , document.getElementById('root'))
 ```
 
-For more details, checkout the [simple-router example](examples/simple-router), and [react-router Docs](https://github.com/ReactTraining/react-router/tree/master/packages/react-router).
+For more details, checkout the [simple-router example](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router), and [react-router Docs](https://github.com/ReactTraining/react-router/tree/master/packages/react-router).
 

@@ -23,7 +23,7 @@ A typical React/Redux app looks like the following:
 
 The problem? [Too much boilerplates](https://github.com/reactjs/redux/blob/master/docs/recipes/ReducingBoilerplate.md) and a little bit tedious.
 
-In fact, most part of the above steps could be simplified. Like, create `action`s and `reducer`s in a single method, or dispacth both sync and async actions by simply invoking a function without extra middleware, or define routes without caring about `history`, etc.
+In fact, most part of the above steps could be simplified. Like, create `action`s and `reducer`s in a single method, or dispatch both sync and async actions by simply invoking a function without extra middleware, or define routes without caring about `history`, etc.
 
 That's exactly what Mirror does, encapsulates the tedious or repetitive work in very few APIs to offer a high level abstraction with efficiency and simplicity, and without breaking the pattern.
 

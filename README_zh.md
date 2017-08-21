@@ -58,8 +58,8 @@ $ npm start
 import React from 'react'
 import mirror, {actions, connect, render} from 'mirrorx'
 
-// declare Redux state, reducers and actions,
-// all actions will be added to `actions` object from mirror
+// 声明 Redux state, reducer 和 action，
+// 所有的 action 都会以相同名称赋值到全局的 actions 对象上
 mirror.model({
   name: 'app',
   initialState: {
@@ -80,22 +80,23 @@ mirror.model({
   }
 })
 
-// connect state with component
+// 使用 react-redux 的 connect 方法，连接 state 和组件
 const App = connect(state => {
   return {count: state.app.count};
 })(props => {
   return (
     <div>
       <h1>{props.count}</h1>
-      {/* dispatch the actions */}
+      {/* 调用 actions 上的方法来 dispatch action */}
       <button onClick={() => actions.app.decrement()}>-</button>
       <button onClick={() => actions.app.increment()}>+</button>
+      {/* dispatch async action */}
       <button onClick={() => actions.app.incrementAsync()}>+ Async</button>
     </div>
   )
 })
 
-// start the app
+// 启动 app，render 方法是加强版的 ReactDOM.render
 render(<App/>, document.getElementById('root'))
 ```
 

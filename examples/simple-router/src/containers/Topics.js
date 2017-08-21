@@ -1,5 +1,5 @@
 import React from 'react'
-import mirror, {connect} from 'mirrorx'
+import mirror, { connect, render } from 'mirrorx'
 
 import Topics from '../components/Topics'
 
@@ -14,5 +14,6 @@ mirror.model({
     }
   }
 })
+render()
 
 export default connect(({topics}) => ({topics}))(Topics)

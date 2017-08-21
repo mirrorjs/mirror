@@ -4,19 +4,22 @@ import {Route} from 'mirrorx'
 import Header from './components/Header'
 import Home from './components/Home'
 import About from './components/About'
+import asyncComponent from './asyncComponent'
 
-import Topics from './containers/Topics'
+const Topics = asyncComponent(() => import('./containers/Topics'))
 
-const App = () => (
-  <div>
-    <Header/>
-    <hr/>
+const App = () => {
+  return (
     <div>
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/topics" component={Topics}/>
+      <Header/>
+      <hr/>
+      <div>
+        <Route exact path="/" component={Home}/>
+        <Route path="/about" component={About}/>
+        <Route path="/topics" component={Topics}/>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default App

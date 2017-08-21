@@ -4,7 +4,7 @@
 
 [查看中文](https://github.com/mirrorjs/mirror/blob/master/README_zh.md)
 
-A simple and powerful React framework with minimal API and zero boilerplate. (Inspired by [dva](https://github.com/dvajs/dva) and [jumpsate](https://github.com/jumpsuit/jumpstate))
+A simple and powerful React framework with minimal API and zero boilerplate. (Inspired by [dva](https://github.com/dvajs/dva) and [jumpstate](https://github.com/jumpsuit/jumpstate))
 
 > Painless React and Redux.
 

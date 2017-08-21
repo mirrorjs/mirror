@@ -58,43 +58,44 @@ $ npm start
 import React from 'react'
 import mirror, {actions, connect, render} from 'mirrorx'
 
-// 声明 Redux state, reducer 和 action，
-// 所有的 action 都会以相同名称赋值到全局的 actions 对象上
+// declare Redux state, reducers and actions,
+// all actions will be added to `actions` object from mirror
 mirror.model({
   name: 'app',
-  initialState: 0,
+  initialState: {
+    count: 0
+  },
   reducers: {
-    increment(state) { return state + 1 },
-    decrement(state) { return state - 1 }
+    increment(state) { return {...state, count: state.count + 1}; },
+    decrement(state) { return {...state, count: state.count - 1}; }
   },
   effects: {
-    async incrementAsync() {
-      await new Promise((resolve, reject) => {
+    incrementAsync() {
+      new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve()
         }, 1000)
-      })
-      actions.app.increment()
+      }).then(() => actions.app.increment())     
     }
   }
 })
 
-// 使用 react-redux 的 connect 方法，连接 state 和组件
+// connect state with component
 const App = connect(state => {
-  return {count: state.app}
-})(props => (
+  return {count: state.app.count};
+})(props => {
+  return (
     <div>
       <h1>{props.count}</h1>
-      {/* 调用 actions 上的方法来 dispatch action */}
+      {/* dispatch the actions */}
       <button onClick={() => actions.app.decrement()}>-</button>
       <button onClick={() => actions.app.increment()}>+</button>
-      {/* dispatch async action */}
       <button onClick={() => actions.app.incrementAsync()}>+ Async</button>
     </div>
   )
-)
+})
 
-// 启动 app，render 方法是加强版的 ReactDOM.render
+// start the app
 render(<App/>, document.getElementById('root'))
 ```
 

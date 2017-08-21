@@ -64,27 +64,29 @@ import mirror, {actions, connect, render} from 'mirrorx'
 // all actions will be added to `actions`.
 mirror.model({
   name: 'app',
-  initialState: 0,
+  initialState: {
+    count: 0
+  },
   reducers: {
-    increment(state) { return state + 1 },
-    decrement(state) { return state - 1 }
+    increment(state) { return {...state, count: state.count + 1}; },
+    decrement(state) { return {...state, count: state.count - 1}; }
   },
   effects: {
-    async incrementAsync() {
-      await new Promise((resolve, reject) => {
+    incrementAsync() {
+      new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve()
         }, 1000)
-      })
-      actions.app.increment()
+      }).then(() => actions.app.increment())     
     }
   }
 })
 
 // connect state with component
 const App = connect(state => {
-  return {count: state.app}
-})(props => (
+  return {count: state.app.count};
+})(props => {
+  return (
     <div>
       <h1>{props.count}</h1>
       {/* dispatch the actions */}

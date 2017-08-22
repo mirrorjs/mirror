@@ -39,7 +39,6 @@ export function createStore(models, initialState, middlewares = []) {
 
 export function replaceReducer(store, models) {
   const reducer = createReducer(models)
-  console.log(reducer)
   store.replaceReducer(reducer)
 }
 
@@ -49,8 +48,6 @@ function createReducer(models) {
     acc[cur.name] = cur.reducer
     return acc
   }, {})
-
-  console.log(reducers)
 
   if (options.immutable) {
     return immutableCombineReducers({

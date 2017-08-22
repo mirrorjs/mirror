@@ -97,7 +97,7 @@ mirror.model({
 执行上述代码，Mirror 实际上做了以下 3 件事情：
 
 1. 创建一个 [reducer](http://redux.js.org/docs/basics/Reducers.html)；
-2. 创建一个 [action tye](http://redux.js.org/docs/basics/Actions.html)（本例中是 `app/add`），这个 action 会被上面的 reducer 处理；
+2. 创建一个 [action type](http://redux.js.org/docs/basics/Actions.html)（本例中是 `app/add`），这个 action 会被上面的 reducer 处理；
 3. 在 `actions.<modelName>` 上添加一个方法，该方法的名称与 `reducers` 中的方法名完全一致，当调用 `actions.<modelName>` 中的这个方法时，上面创建的 `action` 会被 dispatch。
 
 同时我们也可以看到 model 的 `name` 的另一个用处：

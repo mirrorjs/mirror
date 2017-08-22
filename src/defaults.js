@@ -8,6 +8,8 @@ export const options = {
 
   // A list of the standard Redux middleware
   middlewares: [],
+
+  immutable: false
 }
 
 const historyModes = ['browser', 'hash', 'memory']
@@ -17,6 +19,7 @@ export default function defaults(opts = {}) {
   const {
     historyMode,
     middlewares,
+    immutable
   } = opts
 
   if (historyMode && !~historyModes.indexOf(historyMode)) {
@@ -27,7 +30,10 @@ export default function defaults(opts = {}) {
     throw new Error(`middlewares "${middlewares}" is invalid, must be an Array!`)
   }
 
-  Object.keys(opts).forEach(key => {
-    options[key] = opts[key]
-  })
+  if (immutable && typeof immutable != 'boolean') {
+    throw new Error(`immutable "${immutable}" is invalid, must be an boolean!`)
+  }
+
+  Object.keys(opts).forEach(key => options[key] = opts[key])
+
 }

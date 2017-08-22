@@ -1,13 +1,10 @@
-import {
-  createStore as _createStore,
-  applyMiddleware,
-  combineReducers,
-  compose
-} from 'redux'
+import {applyMiddleware, combineReducers, compose, createStore as _createStore} from 'redux'
 import {routerMiddleware, routerReducer} from 'react-router-redux'
+import {combineReducers as immutableCombineReducers} from 'redux-immutable'
 
 import createMiddleware from './middleware'
 import {getHistory} from './router'
+import {options} from './defaults'
 
 export let store
 
@@ -42,6 +39,7 @@ export function createStore(models, initialState, middlewares = []) {
 
 export function replaceReducer(store, models) {
   const reducer = createReducer(models)
+  console.log(reducer)
   store.replaceReducer(reducer)
 }
 
@@ -52,9 +50,17 @@ function createReducer(models) {
     return acc
   }, {})
 
-  return combineReducers({
-    ...reducers,
-    routing: routerReducer
-  })
+  console.log(reducers)
+
+  if (options.immutable) {
+    return immutableCombineReducers({
+      ...reducers, routing: routerReducer
+    })
+  }else{
+    return combineReducers({
+      ...reducers,
+      routing: routerReducer
+    })
+  }
 
 }

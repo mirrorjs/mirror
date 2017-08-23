@@ -125,7 +125,7 @@ Yes.
 
 #### Can I use extra Redux middlewares?
 
-Yes, speicify them in `mirror.defaults`, learn more from the Docs.
+Yes, specify them in `mirror.defaults`, learn more from the Docs.
 
 #### Which version of react-router does Mirror use?
 

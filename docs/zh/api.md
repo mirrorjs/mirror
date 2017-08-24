@@ -6,7 +6,7 @@
   * [`reducers`](#-reducers)
   * [`effects`](#-effects)
 * [actions](#actions)
-* [mirror.hook](#mirrorhookaction-getstate-)
+* [mirror.hook](#mirrorhookaction-getstate--)
 * [mirror.defaults](#mirrordefaultsoptions)
   * [`initialState`](#-optionsinitialstate)
   * [`historyMode`](#-optionshistorymode)

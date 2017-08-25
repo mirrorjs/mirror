@@ -544,6 +544,8 @@ The following components from `react-router` are also exported by Mirror:
 * [`Redirect`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Redirect.md)
 * [`Link`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/Link.md)
 * [`NavLink`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/NavLink.md)
+* [`Prompt`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/Prompt.md)
+* [`withRouter`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/api/withRouter.md)
 
 A simple example:
 

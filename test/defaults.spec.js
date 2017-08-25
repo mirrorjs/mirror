@@ -1,6 +1,6 @@
 import defaults, {options} from 'defaults'
 
-describe('model.defaults', () => {
+describe('mirror.defaults', () => {
 
   it('options should be exported', () => {
     expect(options).toBeDefined()

@@ -4,7 +4,8 @@ import {Provider} from 'react-redux'
 
 import {options} from './defaults'
 import {models} from './model'
-import {store, createStore, replaceReducer} from './store'
+import {createStore, replaceReducer, store} from './store'
+import {Map} from 'immutable'
 
 let started = false
 let Root
@@ -25,7 +26,7 @@ export default function render(component, container, callback) {
     }
 
   } else {
-    createStore(models, initialState, middlewares)
+    createStore(models, initialState || Map({}), middlewares)
   }
 
   // Use named function get a proper displayName

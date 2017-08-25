@@ -29,7 +29,8 @@ describe('mirror.defaults', () => {
   it('throws if middlewares is not array', () => {
     expect(() => {
       defaults({
-        middlewares: () => {}
+        middlewares: () => {
+        }
       })
     }).toThrow(/invalid/)
 
@@ -39,4 +40,19 @@ describe('mirror.defaults', () => {
       })
     }).not.toThrow()
   })
+
+  it('throws if immutable is not boolean', () => {
+    expect(() => {
+      defaults({
+        immutable: '12ewqq'
+      })
+    }).toThrow(/invalid/)
+
+    expect(() => {
+      defaults({
+        immutable: true
+      })
+    }).not.toThrow()
+  })
+
 })

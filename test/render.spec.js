@@ -1,5 +1,5 @@
 import React from 'react'
-import mirror, {actions, render, connect} from 'index'
+import mirror, {actions, connect, render} from 'index'
 import {store} from 'store'
 
 
@@ -85,4 +85,6 @@ describe('the render function', () => {
     expect(store.getState().model1).toEqual({count: 0})
     expect(store.getState().model2).toEqual({foo: 'foo'})
   })
+
+
 })

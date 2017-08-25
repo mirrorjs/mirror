@@ -17,3 +17,4 @@ coverage
 *.patch
 
 .DS_STORE
+.idea

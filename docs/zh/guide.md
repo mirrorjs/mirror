@@ -28,4 +28,4 @@ Mirror 完全按照 [react-router 4.x](https://github.com/ReactTraining/react-ro
 
 #### Hook
 
-可以将 [hook](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md#mirrorhookaction-getstate) 理解为监听每一个被 dispatch 的 action 的 listener，并且这个 listener 是可以随时取消的。假设你希望监控每一次 location 的变化，那么你可以通过 `mirror.hook` 接口去检测 type 为 `@@router/LOCATION_CHANGE` 的 action。
+可以将 [hook](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md#mirrorhookaction-getstate--) 理解为监听每一个被 dispatch 的 action 的 listener，并且这个 listener 是可以随时取消的。假设你希望监控每一次 location 的变化，那么你可以通过 `mirror.hook` 接口去检测 type 为 `@@router/LOCATION_CHANGE` 的 action。

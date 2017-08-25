@@ -26,6 +26,6 @@ The [`render`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md##rende
 
 #### Hooks
 
-A [hook](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#mirrorhookaction-getstate-) is a listener subscribes to every `action` you dispatched. For example, if you want to monitor location changes, you can hook the actions whose type is `@@router/LOCATION_CHANGE` by `mirror.hook`.
+A [hook](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#mirrorhookaction-getstate--) is a listener subscribes to every `action` you dispatched. For example, if you want to monitor location changes, you can hook the actions whose type is `@@router/LOCATION_CHANGE` by `mirror.hook`.
 
 

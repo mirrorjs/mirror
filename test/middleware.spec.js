@@ -1,6 +1,6 @@
 import {createStore, applyMiddleware} from 'redux'
 import createMiddleware, {dispatch} from 'middleware'
-import {addEffect} from 'effects'
+import {effects, addEffect} from 'effects'
 
 describe('the middleware', () => {
 
@@ -18,7 +18,7 @@ describe('the middleware', () => {
     }
 
     // register an effect
-    addEffect('myEffect', fn)
+    addEffect(effects)('myEffect', fn)
 
     const store = createStore(reducer, applyMiddleware(createMiddleware()))
 

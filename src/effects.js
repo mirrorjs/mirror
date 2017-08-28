@@ -1,6 +1,6 @@
-// Registry of namsspaced effects
+// Registry of namespaced effects
 export const effects = {}
 
-export function addEffect(name, handler) {
+export const addEffect = effects => (name, handler) => {
   effects[name] = handler
 }

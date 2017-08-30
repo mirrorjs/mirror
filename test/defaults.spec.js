@@ -39,4 +39,19 @@ describe('mirror.defaults', () => {
       })
     }).not.toThrow()
   })
+
+  it('throws if an addEffect is not a function that returns a function', () => {
+    expect(() => {
+      defaults({
+        addEffect: () => true
+      })
+    }).toThrow(/invalid/)
+
+    expect(() => {
+      defaults({
+        addEffect: () => () => true
+      })
+    }).not.toThrow()
+  })
+
 })

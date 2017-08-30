@@ -1,5 +1,5 @@
 import {dispatch} from './middleware'
-import {addEffect} from './effects'
+import {options} from './defaults'
 
 const SEP = '/'
 
@@ -13,7 +13,7 @@ export function addActions(modelName, reducers = {}, effects = {}) {
 
   each(reducers, actionName => {
     // A single-argument function, whose argument is the payload data of a normal redux action,
-    // and also the `data` param of coresponding method defined in model.reducers.
+    // and also the `data` param of corresponding method defined in model.reducers.
     actions[modelName][actionName] = actionCreator(modelName, actionName)
   })
 
@@ -22,7 +22,7 @@ export function addActions(modelName, reducers = {}, effects = {}) {
       throw new Error(`Action name "${effectName}" has been used! Please select another name as effect name!`)
     }
 
-    addEffect(`${modelName}${SEP}${effectName}`, effects[effectName])
+    options.addEffect(`${modelName}${SEP}${effectName}`, effects[effectName])
 
     // Effect is like normal action, except it is handled by mirror middleware
     actions[modelName][effectName] = actionCreator(modelName, effectName)

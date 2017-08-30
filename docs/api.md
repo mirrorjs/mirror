@@ -11,6 +11,7 @@
   * [`initialState`](#-optionsinitialstate)
   * [`historyMode`](#-optionshistorymode)
   * [`middlewares`](#-optionsmiddlewares)
+  * [`addEffect`](#-optionsaddeffect)
 * [connect](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [render](#rendercomponent-container-callback)
 * [Router](#router)
@@ -195,7 +196,7 @@ mirror.model({
 })
 ```
 
-Now, `actions.app` will have 2 methods: 
+Now, `actions.app` will have 2 methods:
 
 * `actions.app.add`
 * `actions.app.myEffect`
@@ -448,6 +449,12 @@ For more information, check out the [history](https://github.com/ReactTraining/h
 Specifies a list of [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html).
 
 This option is useful if you want to use some third party middlewares. In this case, you have to [`connect`](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) without `mapDispatchToProps` specified to get `props.dispatch` method, so you can dispatch actions manually.
+
+#### * `options.addEffect`
+
+* Default: `(effects) => (name, handler) => { effects[name] = handler }`
+
+Presents an option to configure how effects are created.
 
 ### connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 

@@ -11,6 +11,7 @@
   * [`initialState`](#-optionsinitialstate)
   * [`historyMode`](#-optionshistorymode)
   * [`middlewares`](#-optionsmiddlewares)
+  * [`addEffect`](#-optionsaddeffect)
 * [connect](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [render](#rendercomponent-container-callback)
 * [Router](#router)
@@ -451,6 +452,12 @@ store.getState()
 用来指定一系列标准的 [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html)。
 
 假如你想使用一些第三方的 middleware，那么可以在这个选项中指定。同时，你需要调用 [`connect`](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 且不传递 `mapDispatchToProps` 来获取 `props.dispatch` 方法，然后手动 dispatch action。
+
+#### * `options.addEffect`
+
+* Default: `(effects) => (name, handler) => { effects[name] = handler }`
+
+自定义指定 `effect` 如何处理，比如要使用 `saga`, 可在这个选项中 `runSaga`。
 
 ### connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 

@@ -1,4 +1,4 @@
-import defaults, {options} from 'defaults'
+import defaults, { options } from 'defaults'
 
 describe('mirror.defaults', () => {
 

@@ -1,4 +1,4 @@
-import {resolveReducers, addActions} from './actions'
+import { resolveReducers, addActions } from './actions'
 
 export const models = []
 

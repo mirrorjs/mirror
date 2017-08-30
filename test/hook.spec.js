@@ -5,7 +5,7 @@ beforeEach(() => {
 describe('the hook method', () => {
 
   it('hooks should be an array', () => {
-    const {hooks} = require('hook')
+    const { hooks } = require('hook')
 
     expect(hooks).toEqual([])
   })
@@ -24,7 +24,7 @@ describe('the hook method', () => {
 
   it('mirror.hook should add hook', () => {
     const mirror = require('index')
-    const {hooks} = require('hook')
+    const { hooks } = require('hook')
 
     const fn = jest.fn()
 
@@ -35,8 +35,8 @@ describe('the hook method', () => {
 
   it('dispatch action should call hook', () => {
     const mirror = require('index')
-    const {createStore} = require('store')
-    const {actions} = mirror
+    const { createStore } = require('store')
+    const { actions } = mirror
 
     const fn = jest.fn()
 
@@ -66,8 +66,8 @@ describe('the hook method', () => {
 
   it('call function returned by hook should remove hook', () => {
     const mirror = require('index')
-    const {createStore} = require('store')
-    const {actions} = mirror
+    const { createStore } = require('store')
+    const { actions } = mirror
 
     let log = []
     let state

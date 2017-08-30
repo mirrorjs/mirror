@@ -1,4 +1,4 @@
-import {effects, addEffect} from './effects'
+import { effects, addEffect } from './effects'
 
 export const options = {
   // global initial state

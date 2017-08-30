@@ -1,6 +1,6 @@
-import {createStore, applyMiddleware} from 'redux'
-import createMiddleware, {dispatch} from 'middleware'
-import {effects, addEffect} from 'effects'
+import { createStore, applyMiddleware } from 'redux'
+import createMiddleware, { dispatch } from 'middleware'
+import { effects, addEffect } from 'effects'
 
 describe('the middleware', () => {
 
@@ -24,13 +24,13 @@ describe('the middleware', () => {
 
     expect(dispatch).toBeDefined()
 
-    dispatch({type: 'add', data: 1})
+    dispatch({ type: 'add', data: 1 })
 
     expect(store.getState()).toEqual(1)
 
     expect(fn).not.toBeCalled()
 
-    dispatch({type: 'myEffect'})
+    dispatch({ type: 'myEffect' })
 
     expect(fn).toBeCalled()
   })

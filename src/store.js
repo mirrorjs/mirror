@@ -4,10 +4,10 @@ import {
   combineReducers,
   compose
 } from 'redux'
-import {routerMiddleware, routerReducer} from 'react-router-redux'
+import { routerMiddleware, routerReducer } from 'react-router-redux'
 
 import createMiddleware from './middleware'
-import {getHistory} from './router'
+import { getHistory } from './router'
 
 export let store
 

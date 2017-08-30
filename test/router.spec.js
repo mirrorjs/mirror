@@ -28,8 +28,8 @@ describe('the enhanced Router', () => {
 
   it('should pass history to Router', () => {
     const mirror = require('index')
-    const {render, Router} = mirror
-    const {getHistory} = require('router')
+    const { render, Router } = mirror
+    const { getHistory } = require('router')
 
     const history = getHistory()
     const container = document.createElement('div')
@@ -46,7 +46,7 @@ describe('the enhanced Router', () => {
 
   it('should add navigation methods of history object to actions.routing', () => {
     const mirror = require('index')
-    const {actions, render, Router} = mirror
+    const { actions, render, Router } = mirror
 
     const container = document.createElement('div')
 
@@ -71,7 +71,7 @@ describe('the enhanced Router', () => {
 
   it('should change history when call methods in actions.routing', () => {
     const mirror = require('index')
-    const {actions, render, Router} = mirror
+    const { actions, render, Router } = mirror
 
     const container = document.createElement('div')
 

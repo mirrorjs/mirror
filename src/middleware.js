@@ -1,5 +1,5 @@
-import {effects} from './effects'
-import {hooks} from './hook'
+import { effects } from './effects'
+import { hooks } from './hook'
 
 function warning() {
   throw new Error(

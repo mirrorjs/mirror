@@ -1,5 +1,5 @@
-import {dispatch} from './middleware'
-import {options} from './defaults'
+import { dispatch } from './middleware'
+import { options } from './defaults'
 
 const SEP = '/'
 

@@ -8,17 +8,17 @@ jest.useFakeTimers()
 describe('global actions', () => {
 
   it('actions should be an empty object', () => {
-    const {actions} = require('index')
+    const { actions } = require('index')
     expect(actions).toEqual({})
   })
 
   it('addActions should add action', () => {
-    const {actions} = require('index')
-    const {addActions} = require('actions')
+    const { actions } = require('index')
+    const { addActions } = require('actions')
 
     addActions('app', {
       add(state, data) {
-        return {...state, count: state.count + data}
+        return { ...state, count: state.count + data }
       }
     })
 
@@ -29,7 +29,7 @@ describe('global actions', () => {
 
   it('mirror.model should add action', () => {
     const mirror = require('index')
-    const {actions} = mirror
+    const { actions } = mirror
 
     mirror.model({
       name: 'app',
@@ -38,7 +38,7 @@ describe('global actions', () => {
       },
       reducers: {
         add(state, data) {
-          return {...state, count: state.count + data}
+          return { ...state, count: state.count + data }
         }
       }
     })
@@ -50,7 +50,7 @@ describe('global actions', () => {
 
   it('throws if call actions without creating store', () => {
     const mirror = require('index')
-    const {actions} = mirror
+    const { actions } = mirror
 
     mirror.model({
       name: 'app',
@@ -69,8 +69,8 @@ describe('global actions', () => {
 
   it('call actions should dispatch action', () => {
     const mirror = require('index')
-    const {actions} = mirror
-    const {createStore} = require('store')
+    const { actions } = mirror
+    const { createStore } = require('store')
 
     const model = mirror.model({
       name: 'app',
@@ -96,7 +96,7 @@ describe('global actions', () => {
 
   it('should register to global effects object', () => {
     const mirror = require('index')
-    const {effects} = require('effects')
+    const { effects } = require('effects')
 
     mirror.model({
       name: 'app',
@@ -113,7 +113,7 @@ describe('global actions', () => {
 
   it('should add action by specifying effects', () => {
     const mirror = require('index')
-    const {actions} = mirror
+    const { actions } = mirror
 
     mirror.model({
       name: 'app',
@@ -136,8 +136,8 @@ describe('global actions', () => {
 
   it('async/await style effect actions', async () => {
     const mirror = require('index')
-    const {actions} = mirror
-    const {createStore} = require('store')
+    const { actions } = mirror
+    const { createStore } = require('store')
 
     const model = mirror.model({
       name: 'app',
@@ -149,7 +149,7 @@ describe('global actions', () => {
       },
       effects: {
         async myEffect(data, getState) {
-          const {app} = getState()
+          const { app } = getState()
           const res = await Promise.resolve(app + data)
           // calls the pure reducer
           actions.app.add(res)
@@ -170,8 +170,8 @@ describe('global actions', () => {
 
   it('callback style effect actions', () => {
     const mirror = require('index')
-    const {actions} = mirror
-    const {createStore} = require('store')
+    const { actions } = mirror
+    const { createStore } = require('store')
 
     const fn = jest.fn()
 

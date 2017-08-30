@@ -1,5 +1,5 @@
 // Test for global exported store object
-import {store as _store, createStore} from 'store'
+import { store as _store, createStore } from 'store'
 
 beforeEach(() => {
   jest.resetModules()
@@ -17,7 +17,7 @@ describe('create store', () => {
       },
       reducers: {
         add(state, data) {
-          return {...state, count: state.count + data}
+          return { ...state, count: state.count + data }
         }
       }
     })
@@ -26,7 +26,7 @@ describe('create store', () => {
 
     expect(store).toBeDefined()
     expect(store.getState).toBeInstanceOf(Function)
-    expect(store.getState().app).toEqual({count: 0})
+    expect(store.getState().app).toEqual({ count: 0 })
   })
 
   it('exported store should be the created store', () => {
@@ -73,7 +73,7 @@ describe('create store', () => {
       },
       reducers: {
         add(state, data) {
-          return {...state, count: state.count + data}
+          return { ...state, count: state.count + data }
         }
       }
     })
@@ -85,7 +85,7 @@ describe('create store', () => {
       data: 1
     })
 
-    expect(store.getState().app).toEqual({count: 1})
+    expect(store.getState().app).toEqual({ count: 1 })
   })
 
 })

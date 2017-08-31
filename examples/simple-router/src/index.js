@@ -4,7 +4,7 @@ import mirror, {render, Router} from 'mirrorx'
 import App from './App'
 
 mirror.defaults({
-  historyMode: 'hash'
+  historyMode: 'browser'
 })
 
 render(

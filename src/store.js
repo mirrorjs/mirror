@@ -8,8 +8,15 @@ import {routerMiddleware, routerReducer} from 'react-router-redux'
 
 import createMiddleware from './middleware'
 import {getHistory} from './router'
+import {options} from './defaults'
 
 export let store
+
+export function getStore() {
+  const { models } = require('model')
+  const {initialState, middlewares} = options
+  return createStore(models, initialState, middlewares)
+}
 
 export function createStore(models, initialState, middlewares = []) {
 

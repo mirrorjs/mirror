@@ -1,5 +1,5 @@
 // Test for global exported store object
-import {store as _store, createStore} from 'store'
+import {store as _store, createStore, getStore} from 'store'
 
 beforeEach(() => {
   jest.resetModules()
@@ -43,6 +43,30 @@ describe('create store', () => {
 
     const store = createStore([model])
 
+    expect(_store).toBe(store)
+  })
+
+  it('should get the store and just the exported store', () => {
+
+    const mirror = require('index')
+
+    mirror.model({
+      name: 'app',
+      initialState: {
+        count: 0
+      },
+      reducers: {
+        add(state, data) {
+          return {...state, count: state.count + data}
+        }
+      }
+    })
+
+    const store = getStore()
+
+    expect(store).toBeDefined()
+    expect(store.getState).toBeInstanceOf(Function)
+    expect(store.getState().app).toEqual({count: 0})
     expect(_store).toBe(store)
   })
 

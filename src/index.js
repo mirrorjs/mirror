@@ -6,6 +6,7 @@ import {actions} from './actions'
 import render from './render'
 import hook from './hook'
 import Router from './router'
+import {getStore} from './store'
 import defaults from './defaults'
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
   hook,
   defaults,
   connect,
+  getStore,
   render,
 
   Router,

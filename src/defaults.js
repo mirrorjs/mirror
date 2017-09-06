@@ -39,7 +39,7 @@ export default function defaults(opts = {}) {
       throw new Error(`addEffect "${addEffect}" is invalid, must be a function that returns a function`)
     } else {
       // create effects handler with initial effects object
-      options.addEffect = options.addEffect(effects)
+      opts.addEffect = opts.addEffect(effects)
     }
   }
 

@@ -19,17 +19,15 @@ export default function createMiddleware() {
 
     return next => action => {
 
-      const result = next(action)
-
-      let effectResult
+      let result = next(action)
 
       if (typeof effects[action.type] === 'function') {
-        effectResult = effects[action.type](action.data, getState)
+        result = effects[action.type](action.data, getState)
       }
 
       hooks.forEach(hook => hook(action, getState))
 
-      return effectResult || result
+      return result
     }
   }
 }

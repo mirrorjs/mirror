@@ -562,7 +562,9 @@ This is very useful for large apps.
 
 > Mirror uses [react-router@4.x](https://github.com/ReactTraining/react-router), so if you're from react-router 2.x/3.x, you should checkout the [Migrating from v2/v3 to v4 Guide](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/migrating.md).
 
-This is an enhanced `Router` component from [react-router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router). The `history` and `store` is automatically passed to `Router`, all you have to do is declare your routes.
+This is an enhanced `Router` component from [react-router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router). The `history` and `store` is automatically passed to `Router`, all you have to do is declare your routes. But if you like, you can also create your own `history` object and pass it as a prop to `Router` component.
+
+What about props like [`basename`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md#basename-string) or [`getUserConfirmation`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md#getuserconfirmation-func)? Well, Mirror's `Router` handles them all! For a complete list of props `Router` takes, check out [`BrowserRouter`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md), [`HashRouter`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/HashRouter.md) and [`MemoryRouter`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/MemoryRouter.md).
 
 The following components from `react-router` are also exported by Mirror:
 

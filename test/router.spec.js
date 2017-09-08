@@ -1,5 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import mirror, { actions, render, Router } from 'index'
+import { history } from 'router'
 
 beforeEach(() => {
   jest.resetModules()
@@ -27,11 +29,7 @@ describe('the enhanced Router', () => {
 
 
   it('should pass history to Router', () => {
-    const mirror = require('index')
-    const { render, Router } = mirror
-    const { getHistory } = require('router')
 
-    const history = getHistory()
     const container = document.createElement('div')
 
     render(
@@ -45,8 +43,6 @@ describe('the enhanced Router', () => {
   })
 
   it('should add navigation methods of history object to actions.routing', () => {
-    const mirror = require('index')
-    const { actions, render, Router } = mirror
 
     const container = document.createElement('div')
 
@@ -70,8 +66,6 @@ describe('the enhanced Router', () => {
   })
 
   it('should change history when call methods in actions.routing', () => {
-    const mirror = require('index')
-    const { actions, render, Router } = mirror
 
     const container = document.createElement('div')
 
@@ -92,4 +86,26 @@ describe('the enhanced Router', () => {
 
     expect(rootContext.router.route.match.isExact).toBe(false)
   })
+
+  it('should be ok if pass an history object', () => {
+
+    const createHashHistory = require('history/createHashHistory').default
+    const _history = createHashHistory()
+
+    const container = document.createElement('div')
+
+    render(
+      <Router history={_history}>
+        <ContextChecker/>
+      </Router>,
+      container
+    )
+
+    expect(rootContext.router.history).toBe(_history)
+
+    expect(rootContext.router.route.match.isExact).toBe(true)
+    actions.routing.push('/new')
+    expect(rootContext.router.route.match.isExact).toBe(false)
+  })
+
 })

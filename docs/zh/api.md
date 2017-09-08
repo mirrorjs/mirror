@@ -567,7 +567,9 @@ render()
 
 > Mirror 使用的是 [react-router@4.x](https://github.com/ReactTraining/react-router)，如果你有 react-router 2.x/3.x 的经验，那么你应该仔细阅读一下 react-router 官方的[迁移指南](https://github.com/ReactTraining/react-router/blob/master/packages/react-router/docs/guides/migrating.md)。
 
-Mirror 的 `Router` 组件是加强版的 [react-router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router) 的 `Router`。所加强的地方在于，`Redux store` 和 `history` 都自动处理好了，不需要你去做关联，也不需要你去创建 `history` 对象，你只需要关心自己的业务逻辑，定义路由即可。
+Mirror 的 `Router` 组件是加强版的 [react-router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router) 的 `Router`。所加强的地方在于，`Redux store` 和 `history` 都自动处理好了，不需要你去做关联，也不需要你去创建 `history` 对象，你只需要关心自己的业务逻辑，定义路由即可。当然，如果你想自己创建一个 `history` 对象，然后通过 prop 传递给 `Router` 组件，也是没有任何问题的。
+
+那 [`basename`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md#basename-string) 以及 [`getUserConfirmation`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md#getuserconfirmation-func) 等 props 呢？不用担心，Mirror 的 `Router` 全都能处理它们。你可以查看 [`BrowserRouter`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md)、[`HashRouter`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/HashRouter.md) 和 [`MemoryRouter`](https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/MemoryRouter.md) 的文档获取更多信息。
 
 因为 Mirror 没有将 `Router` 用到的 `history` 暴露出去，如果你需要手动更新 location，那么你可以使用 `actions.routing` 上的方法。
 

@@ -4,11 +4,11 @@ import mirror, {render, Router} from 'mirrorx'
 import App from './App'
 
 mirror.defaults({
-  historyMode: 'browser'
+  historyMode: 'hash'
 })
 
 render(
-  <Router>
+  <Router basename="/test" hashType="hashbang">
     <App/>
   </Router>
 , document.getElementById('root'))

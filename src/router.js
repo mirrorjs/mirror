@@ -9,9 +9,9 @@ import { options } from './defaults'
 import { dispatch } from './middleware'
 import { actions } from './actions'
 
-let history
+export let history = null
 
-export default function Router({ history = getHistory(), children }) {
+export default function Router({ history: _history, children, ...others }) {
 
   // Add `push`, `replace`, `go`, `goForward` and `goBack` methods to actions.routing,
   // when called, will dispatch the crresponding action provided by react-router-redux.
@@ -22,9 +22,17 @@ export default function Router({ history = getHistory(), children }) {
     return memo
   }, {})
 
+  // Support for `basename` etc props for Router,
+  // see https://github.com/ReactTraining/react-router/blob/master/packages/react-router-dom/docs/api/BrowserRouter.md
+  if (!_history) {
+    _history = createHistory(others)
+  }
+
+  history = _history
+
   // ConnectedRouter will use the store from Provider automatically
   return (
-    <ConnectedRouter history={history}>
+    <ConnectedRouter history={_history}>
       {children}
     </ConnectedRouter>
   )
@@ -35,11 +43,7 @@ Router.propTypes = {
   history: PropTypes.object
 }
 
-export function getHistory() {
-
-  if (history) {
-    return history
-  }
+function createHistory(props) {
 
   const { historyMode } = options
 
@@ -49,7 +53,7 @@ export function getHistory() {
     memory: createMemoryHistory,
   }
 
-  history = historyModes[historyMode]()
+  history = historyModes[historyMode](props)
 
   return history
 }

@@ -122,7 +122,11 @@ render(<App/>, document.getElementById('root'))
 
 #### 是否可以使用额外的 Redux middleware？
 
-可以，在 `mirror.defaults` 接口中指定即可，具体可查看文档。
+可以，在 [`mirror.defaults`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#-optionsmiddlewares) 接口中指定即可，具体可查看文档。
+
+#### 有办法在 Mirror 中使用 Redux-Saga 么？
+
+当然有，查看 [`addEffect`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#-optionsaddeffect) 选项，有详细的说明。
 
 #### Mirror 用的是什么版本的 react-router？
 

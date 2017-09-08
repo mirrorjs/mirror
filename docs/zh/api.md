@@ -457,7 +457,7 @@ store.getState()
 
 * Default: `(effects) => (name, handler) => { effects[name] = handler }`
 
-自定义指定 `effect` 如何处理，比如要使用 `saga`, 可在这个选项中 `runSaga`。
+自定义指定 `effect` 如何处理，比如要使用 `saga`, 可在这个选项中 `runSaga`。更多信息，可查看 [mirror-saga](https://github.com/ShMcK/mirror-saga) 这个项目。
 
 ### connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 

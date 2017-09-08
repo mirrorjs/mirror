@@ -125,7 +125,11 @@ Yes.
 
 #### Can I use extra Redux middlewares?
 
-Yes, specify them in `mirror.defaults`, learn more from the Docs.
+Yes, specify them in [`mirror.defaults`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#-optionsmiddlewares) is all you need to do, learn more from the Docs.
+
+#### I'm really into Redux-Saga, is there any way to use it in Mirror?
+
+Yes of course, take a look at the [`addEffect`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#-optionsaddeffect) option.
 
 #### Which version of react-router does Mirror use?
 

@@ -454,7 +454,7 @@ This option is useful if you want to use some third party middlewares. In this c
 
 * Default: `(effects) => (name, handler) => { effects[name] = handler }`
 
-Presents an option to configure how effects are created.
+Presents an option to configure how effects are created. Checkout [mirror-saga](https://github.com/ShMcK/mirror-saga) for more information.
 
 ### connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 

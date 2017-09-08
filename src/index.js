@@ -8,7 +8,25 @@ import hook from './hook'
 import Router from './router'
 import defaults from './defaults'
 
-module.exports = {
+export default {
+  model,
+  actions,
+  hook,
+  defaults,
+  connect,
+  render,
+
+  Router,
+  Route,
+  Link,
+  NavLink,
+  Switch,
+  Redirect,
+  Prompt,
+  withRouter
+}
+
+export {
   model,
   actions,
   hook,

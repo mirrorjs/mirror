@@ -20,6 +20,7 @@ export const options = {
 }
 
 const historyModes = ['browser', 'hash', 'memory']
+const isObject = target => Object.prototype.toString.call(target) === '[object Object]'
 
 export default function defaults(opts = {}) {
 
@@ -38,7 +39,7 @@ export default function defaults(opts = {}) {
     throw new Error(`middlewares "${middlewares}" is invalid, must be an Array!`)
   }
 
-  if (reducers && !Array.isArray(reducers) && (typeof obj === 'object')) {
+  if (reducers && !isObject(reducers)) {
     throw new Error(`middlewares "${reducers}" is invalid, must be an Array!`)
   }
 

@@ -11,12 +11,12 @@ let Root
 
 export default function render(component, container, callback) {
 
-  const {initialState, middlewares} = options
+  const {initialState, middlewares, reducers} = options
 
   if (started) {
 
     // If app has rendered, do `store.replaceReducer` to update store.
-    replaceReducer(store, models)
+    replaceReducer(store, models, reducers)
 
     // Call `render` without arguments means *re-render*. Since store has updated,
     // `component` will automatically be updated, so no need to `ReactDOM.render` again.
@@ -25,7 +25,7 @@ export default function render(component, container, callback) {
     }
 
   } else {
-    createStore(models, initialState, middlewares)
+    createStore(models, reducers, initialState, middlewares)
   }
 
   // Use named function get a proper displayName

@@ -40,20 +40,21 @@ export function createStore(models, initialState, middlewares = []) {
   return store
 }
 
-export function replaceReducer(store, models) {
-  const reducer = createReducer(models)
+export function replaceReducer(store, models, reducers) {
+  const reducer = createReducer(models, reducers)
   store.replaceReducer(reducer)
 }
 
-function createReducer(models) {
+function createReducer(models, reducers) {
 
-  const reducers = models.reduce((acc, cur) => {
+  const modelReducers = models.reduce((acc, cur) => {
     acc[cur.name] = cur.reducer
     return acc
   }, {})
 
   return combineReducers({
     ...reducers,
+    ...modelReducers,
     routing: routerReducer
   })
 

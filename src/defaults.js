@@ -11,6 +11,9 @@ export const options = {
   // A list of the standard Redux middleware
   middlewares: [],
 
+  // A list of additional reducers
+  reducers: {},
+
   // An overwrite of the existing effect handler
   addEffect: addEffect(effects),
 
@@ -23,6 +26,7 @@ export default function defaults(opts = {}) {
   const {
     historyMode,
     middlewares,
+    reducers,
     addEffect,
   } = opts
 
@@ -32,6 +36,10 @@ export default function defaults(opts = {}) {
 
   if (middlewares && !Array.isArray(middlewares)) {
     throw new Error(`middlewares "${middlewares}" is invalid, must be an Array!`)
+  }
+
+  if (reducers && !Array.isArray(reducers) && (typeof obj === 'object')) {
+    throw new Error(`middlewares "${reducers}" is invalid, must be an Array!`)
   }
 
   if (addEffect) {

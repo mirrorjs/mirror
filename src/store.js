@@ -11,7 +11,7 @@ import {getHistory} from './router'
 
 export let store
 
-export function createStore(models, initialState, middlewares = []) {
+export function createStore(models, reducers, initialState, middlewares = []) {
 
   const middleware = applyMiddleware(
     routerMiddleware(getHistory()),
@@ -32,7 +32,7 @@ export function createStore(models, initialState, middlewares = []) {
     }
   }
 
-  const reducer = createReducer(models)
+  const reducer = createReducer(models, reducers)
   const enhancer = composeEnhancers(...enhancers)
 
   store = _createStore(reducer, initialState, enhancer)

@@ -1,4 +1,4 @@
-import { effects, addEffect } from './effects'
+import {effects, addEffect} from './effects'
 
 export const options = {
   // global initial state
@@ -26,7 +26,7 @@ export default function defaults(opts = {}) {
     addEffect,
   } = opts
 
-  if (historyMode && !~historyModes.indexOf(historyMode)) {
+  if (historyMode && !historyModes.includes(historyMode)) {
     throw new Error(`historyMode "${historyMode}" is invalid, must be one of ${historyModes.join(', ')}!`)
   }
 

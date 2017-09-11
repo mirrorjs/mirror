@@ -40,6 +40,20 @@ describe('mirror.defaults', () => {
     }).not.toThrow()
   })
 
+  it('throws if reducers is not object', () => {
+    expect(() => {
+      defaults({
+        reducers: () => []
+      })
+    }).toThrow(/invalid/)
+
+    expect(() => {
+      defaults({
+        reducers: {}
+      })
+    }).not.toThrow()
+  })
+
   it('throws if an addEffect is not a function that returns a function', () => {
     expect(() => {
       defaults({

@@ -43,15 +43,13 @@ export function getHistory() {
 
   const {historyMode} = options
 
-  if (historyMode === 'browser') {
-    history = createBrowserHistory()
+  const historyModes = {
+    browser: createBrowserHistory,
+    hash: createHashHistory,
+    memory: createMemoryHistory,
   }
-  if (historyMode === 'hash') {
-    history = createHashHistory()
-  }
-  if (historyMode === 'memory') {
-    history = createMemoryHistory()
-  }
+
+  history = historyModes[historyMode]()
 
   return history
 }

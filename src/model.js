@@ -72,11 +72,12 @@ function filterReducers(reducers) {
     return reducers
   }
 
-  // Filter out non-function entries
   return Object.keys(reducers)
-    .filter(action => typeof reducers[action] === 'function')
-    .reduce((acc, cur) => {
-      acc[cur] = reducers[cur]
+    .reduce((acc, action) => {
+      // Filter out non-function entries
+      if (typeof reducers[action] === 'function') {
+        acc[action] = reducers[action]
+      }
       return acc
     }, {})
 }

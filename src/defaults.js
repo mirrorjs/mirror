@@ -11,7 +11,13 @@ export const options = {
   // A list of the standard Redux middleware
   middlewares: [],
 
-  // A list of additional reducers
+  // `options.reducers` will be directly handled by `combineReducers`,
+  // so reducers defined here must be standard Redux reducer:
+  //
+  // reducers: {
+  //   add: (state, action) => {}
+  // }
+  //
   reducers: {},
 
   // An overwrite of the existing effect handler
@@ -40,7 +46,7 @@ export default function defaults(opts = {}) {
   }
 
   if (reducers && !isObject(reducers)) {
-    throw new Error(`middlewares "${reducers}" is invalid, must be an Array!`)
+    throw new Error(`reducers "${reducers}" is invalid, must be an Object!`)
   }
 
   if (addEffect) {

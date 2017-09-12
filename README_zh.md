@@ -110,6 +110,7 @@ render(<App/>, document.getElementById('root'))
 
 ## 示例项目
 
+* [User-Dashboard](https://github.com/mirrorjs/user-dashboard-example)（一个类似 dva-user-dashboard 的示例项目）
 * [Counter](https://github.com/mirrorjs/mirror/blob/master/examples/counter)
 * [Simple-Router](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router)
 * [Todo](https://github.com/mirrorjs/mirror/blob/master/examples/todo)

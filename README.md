@@ -112,6 +112,7 @@ See [API Reference](https://github.com/mirrorjs/mirror/blob/master/docs/api.md).
 
 ## Examples
 
+* [User-Dashboard](https://github.com/mirrorjs/user-dashboard-example) (An example similar to dva-user-dashboard)
 * [Counter](https://github.com/mirrorjs/mirror/blob/master/examples/counter)
 * [Simple-Router](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router)
 * [Todo](https://github.com/mirrorjs/mirror/blob/master/examples/todo)

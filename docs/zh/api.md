@@ -11,6 +11,7 @@
   * [`initialState`](#-optionsinitialstate)
   * [`historyMode`](#-optionshistorymode)
   * [`middlewares`](#-optionsmiddlewares)
+  * [`reducers`](#-optionsreducers)
   * [`addEffect`](#-optionsaddeffect)
 * [connect](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [render](#rendercomponent-container-callback)
@@ -452,6 +453,25 @@ store.getState()
 用来指定一系列标准的 [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html)。
 
 假如你想使用一些第三方的 middleware，那么可以在这个选项中指定。同时，你需要调用 [`connect`](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) 且不传递 `mapDispatchToProps` 来获取 `props.dispatch` 方法，然后手动 dispatch action。
+
+#### * `options.reducers`
+
+* Default: `{}`
+
+指定一些额外的 reducer。注意这里定义的 reducer 必须为标准的 Redux reducer，这些 reeucer 会直接被 [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html) 处理。
+
+比如，要想在 Mirror app 中使用 [redux-form](https://redux-form.com/)，那么你可以按照以下方式将 redux-form 的 reducer 集成进来：
+
+```js
+import mirror from 'mirrorx'
+import { reducer as formReducer } from 'redux-form'
+
+mirror.defaults({
+  reducers: {
+    form: formReducer
+  }
+})
+```
 
 #### * `options.addEffect`
 

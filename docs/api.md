@@ -11,6 +11,7 @@
   * [`initialState`](#-optionsinitialstate)
   * [`historyMode`](#-optionshistorymode)
   * [`middlewares`](#-optionsmiddlewares)
+  * [`reducers`](#-optionsreducers)
   * [`addEffect`](#-optionsaddeffect)
 * [connect](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [render](#rendercomponent-container-callback)
@@ -449,6 +450,25 @@ For more information, check out the [history](https://github.com/ReactTraining/h
 Specifies a list of [Redux middleware](http://redux.js.org/docs/advanced/Middleware.html).
 
 This option is useful if you want to use some third party middlewares. In this case, you have to [`connect`](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options) without `mapDispatchToProps` specified to get `props.dispatch` method, so you can dispatch actions manually.
+
+#### * `options.reducers`
+
+* Default: `{}`
+
+Specifies some custom reducers. Reducers defined here must be standard Redux reducers, and this will be directly handled by [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html).
+
+For example, to use [redux-form](https://redux-form.com/), you can add redux-form's reducer as the following:
+
+```js
+import mirror from 'mirrorx'
+import { reducer as formReducer } from 'redux-form'
+
+mirror.defaults({
+  reducers: {
+    form: formReducer
+  }
+})
+```
 
 #### * `options.addEffect`
 

@@ -26,15 +26,13 @@ export const options = {
 }
 
 const historyModes = ['browser', 'hash', 'memory']
-const isObject = target => Object.prototype.toString.call(target) === '[object Object]'
 
 export default function defaults(opts = {}) {
 
   const {
     historyMode,
     middlewares,
-    reducers,
-    addEffect,
+    addEffect
   } = opts
 
   if (historyMode && !historyModes.includes(historyMode)) {
@@ -43,10 +41,6 @@ export default function defaults(opts = {}) {
 
   if (middlewares && !Array.isArray(middlewares)) {
     throw new Error(`middlewares "${middlewares}" is invalid, must be an Array!`)
-  }
-
-  if (reducers && !isObject(reducers)) {
-    throw new Error(`reducers "${reducers}" is invalid, must be an Object!`)
   }
 
   if (addEffect) {

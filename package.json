@@ -28,7 +28,6 @@
   "license": "MIT",
   "dependencies": {
     "history": "^4.6.1",
-    "prop-types": "^15.5.10",
     "react-redux": "^5.0.0",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
@@ -37,7 +36,8 @@
   },
   "peerDependencies": {
     "react": "^15.0.0",
-    "react-dom": "^15.0.0"
+    "react-dom": "^15.0.0",
+    "prop-types": "^15.5.10"
   },
   "devDependencies": {
     "babel-cli": "^6.14.1",
@@ -53,6 +53,7 @@
     "jest": "^20.0.4",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
+    "prop-types": "^15.5.10",
     "webpack": "^3.4.0"
   },
   "files": [

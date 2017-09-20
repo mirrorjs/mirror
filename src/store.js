@@ -4,17 +4,15 @@ import {
   combineReducers,
   compose
 } from 'redux'
-import { routerReducer } from 'react-router-redux'
-
 import createMiddleware from './middleware'
-import routerMiddleware from './routerMiddleware'
+import { AppNavigator } from './render'
 
 export let store
 
-export function createStore(models, reducers, initialState, middlewares = []) {
+export function createStore (models, initialState, middlewares = []) {
 
   const middleware = applyMiddleware(
-    routerMiddleware(),
+    // routerMiddleware(getHistory()),
     ...middlewares,
     createMiddleware()
   )
@@ -32,7 +30,7 @@ export function createStore(models, reducers, initialState, middlewares = []) {
     }
   }
 
-  const reducer = createReducer(models, reducers)
+  const reducer = createReducer(models)
   const enhancer = composeEnhancers(...enhancers)
 
   store = _createStore(reducer, initialState, enhancer)
@@ -40,22 +38,37 @@ export function createStore(models, reducers, initialState, middlewares = []) {
   return store
 }
 
-export function replaceReducer(store, models, reducers) {
-  const reducer = createReducer(models, reducers)
+export function replaceReducer (store, models) {
+  const reducer = createReducer(models)
   store.replaceReducer(reducer)
 }
 
-function createReducer(models, reducers) {
+function createReducer (models) {
 
-  const modelReducers = models.reduce((acc, cur) => {
+  const reducers = models.reduce((acc, cur) => {
     acc[cur.name] = cur.reducer
     return acc
   }, {})
 
+  // ------------
+
+  const initialState = AppNavigator.router.getStateForAction({})
+
+  // ReactNavigation Reducer
+  const navReducer = (state = initialState, action) => {
+
+    const nextState = AppNavigator.router.getStateForAction(action, state)
+    // Simply return the original `state` if `nextState` is null or undefined.
+    return nextState || state
+  }
+  // --------------
+
   return combineReducers({
     ...reducers,
-    ...modelReducers,
-    routing: routerReducer
+    nav: navReducer
   })
 
 }
+
+
+

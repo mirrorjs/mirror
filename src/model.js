@@ -2,7 +2,7 @@ import { resolveReducers, addActions } from './actions'
 
 export const models = []
 
-export default function model(m) {
+export default function model (m) {
 
   m = validateModel(m)
 
@@ -20,7 +20,7 @@ export default function model(m) {
   return _model
 }
 
-function validateModel(m = {}) {
+function validateModel (m = {}) {
   const {
     name,
     reducers,
@@ -55,9 +55,8 @@ function validateModel(m = {}) {
   return m
 }
 
-
 // If initialState is not specified, then set it to null
-function getReducer(reducers, initialState = null) {
+function getReducer (reducers, initialState = null) {
 
   return (state = initialState, action) => {
     if (typeof reducers[action.type] === 'function') {
@@ -67,17 +66,16 @@ function getReducer(reducers, initialState = null) {
   }
 }
 
-function filterReducers(reducers) {
+function filterReducers (reducers) {
   if (!reducers) {
     return reducers
   }
 
+  // Filter out non-function entries
   return Object.keys(reducers)
-    .reduce((acc, action) => {
-      // Filter out non-function entries
-      if (typeof reducers[action] === 'function') {
-        acc[action] = reducers[action]
-      }
+    .filter(action => typeof reducers[action] === 'function')
+    .reduce((acc, cur) => {
+      acc[cur] = reducers[cur]
       return acc
     }, {})
 }

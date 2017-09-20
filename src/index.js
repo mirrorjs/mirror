@@ -1,14 +1,35 @@
-import { Route, Redirect, Switch, Prompt, withRouter } from 'react-router'
-import { Link, NavLink } from 'react-router-dom'
+import {
+  createNavigationContainer,
+  StateUtils,
+  addNavigationHelpers,
+  NavigationActions,
+  createNavigator,
+  StackNavigator,
+  TabNavigator,
+  DrawerNavigator,
+  StackRouter,
+  TabRouter,
+  Transitioner,
+  CardStack,
+  Card,
+  Header,
+  HeaderTitle,
+  HeaderBackButton,
+  DrawerView,
+  DrawerItems,
+  TabView,
+  TabBarTop,
+  TabBarBottom,
+  withNavigation,
+} from 'react-navigation'
 import { connect } from 'react-redux'
 import model from './model'
 import { actions } from './actions'
 import render from './render'
 import hook from './hook'
-import Router from './router'
 import defaults from './defaults'
 
-export default {
+module.exports = {
   model,
   actions,
   hook,
@@ -16,30 +37,26 @@ export default {
   connect,
   render,
 
-  Router,
-  Route,
-  Link,
-  NavLink,
-  Switch,
-  Redirect,
-  Prompt,
-  withRouter
-}
-
-export {
-  model,
-  actions,
-  hook,
-  defaults,
-  connect,
-  render,
-
-  Router,
-  Route,
-  Link,
-  NavLink,
-  Switch,
-  Redirect,
-  Prompt,
-  withRouter
+  createNavigationContainer,
+  StateUtils,
+  addNavigationHelpers,
+  NavigationActions,
+  createNavigator,
+  StackNavigator,
+  TabNavigator,
+  DrawerNavigator,
+  StackRouter,
+  TabRouter,
+  Transitioner,
+  CardStack,
+  Card,
+  Header,
+  HeaderTitle,
+  HeaderBackButton,
+  DrawerView,
+  DrawerItems,
+  TabView,
+  TabBarTop,
+  TabBarBottom,
+  withNavigation,
 }

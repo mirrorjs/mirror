@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AppRegistry } from 'react-native'
+import { AppRegistry, addNavigationHelpers } from 'react-native'
 import { connect, Provider } from 'react-redux'
-import { addNavigationHelpers } from 'react-navigation'
 import { options } from './defaults'
 import { models } from './model'
 import { store, createStore, replaceReducer } from './store'
@@ -28,6 +27,7 @@ export default function render (name, component) {
     }
 
   } else {
+    // ------------
     AppNavigator = component
 
     const AppWithNavigationState = ({ dispatch, nav }) => (
@@ -42,7 +42,7 @@ export default function render (name, component) {
     ConnectAppNavigator = connect(state => ({
       nav: state.nav,
     }))(AppWithNavigationState)
-
+    // ------------
     createStore(models, initialState, middlewares)
   }
 

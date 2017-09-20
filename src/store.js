@@ -12,7 +12,6 @@ export let store
 export function createStore (models, initialState, middlewares = []) {
 
   const middleware = applyMiddleware(
-    // routerMiddleware(getHistory()),
     ...middlewares,
     createMiddleware()
   )
@@ -56,7 +55,6 @@ function createReducer (models) {
 
   // ReactNavigation Reducer
   const navReducer = (state = initialState, action) => {
-
     const nextState = AppNavigator.router.getStateForAction(action, state)
     // Simply return the original `state` if `nextState` is null or undefined.
     return nextState || state

@@ -26,6 +26,8 @@ export function addActions(modelName, reducers = {}, effects = {}) {
 
     // Effect is like normal action, except it is handled by mirror middleware
     actions[modelName][effectName] = actionCreator(modelName, effectName)
+    // Allow packages to differentiate effects from actions
+    actions[modelName][effectName].isEffect = true
   })
 }
 

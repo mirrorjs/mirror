@@ -11,15 +11,6 @@ export const options = {
   // A list of the standard Redux middleware
   middlewares: [],
 
-  // `options.reducers` will be directly handled by `combineReducers`,
-  // so reducers defined here must be standard Redux reducer:
-  //
-  // reducers: {
-  //   add: (state, action) => {}
-  // }
-  //
-  reducers: {},
-
   // An overwrite of the existing effect handler
   addEffect: addEffect(effects),
 
@@ -32,10 +23,10 @@ export default function defaults(opts = {}) {
   const {
     historyMode,
     middlewares,
-    addEffect
+    addEffect,
   } = opts
 
-  if (historyMode && !historyModes.includes(historyMode)) {
+  if (historyMode && !~historyModes.indexOf(historyMode)) {
     throw new Error(`historyMode "${historyMode}" is invalid, must be one of ${historyModes.join(', ')}!`)
   }
 

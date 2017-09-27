@@ -1,6 +1,7 @@
 import React from 'react'
 
-import mirror, {render, Router} from 'mirrorx'
+import mirror, { render } from 'mirrorx'
+import { Router } from 'mirrorx/router'
 import App from './App'
 
 mirror.defaults({

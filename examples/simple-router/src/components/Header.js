@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'mirrorx'
+import { Link } from 'mirrorx/router'
 
 const Header = () => (
   <header>

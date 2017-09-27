@@ -1,5 +1,5 @@
 import React from 'react'
-import {Route} from 'mirrorx'
+import { Route } from 'mirrorx/router'
 
 import Header from './components/Header'
 import Home from './components/Home'

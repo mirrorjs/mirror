@@ -88,10 +88,10 @@ describe('global actions', () => {
     const store = createStore([model])
 
     actions.app.add(1)
-    expect(store.getState().app).toEqual(1)
+    expect(store.getState()).toEqual({ app: 1 })
 
     actions.app.minus(1)
-    expect(store.getState().app).toEqual(0)
+    expect(store.getState()).toEqual({ app: 0 })
   })
 
   it('should register to global effects object', () => {
@@ -165,7 +165,7 @@ describe('global actions', () => {
     // myEffect returns nothing
     expect(res).toBe(undefined)
 
-    expect(store.getState().app).toEqual(4)
+    expect(store.getState()).toEqual({ app: 4 })
   })
 
   it('callback style effect actions', () => {
@@ -204,7 +204,7 @@ describe('global actions', () => {
 
     expect(fn).toBeCalled()
 
-    expect(store.getState().app).toEqual(2)
+    expect(store.getState()).toEqual({ app: 2 })
   })
 
 })

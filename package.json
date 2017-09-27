@@ -11,7 +11,6 @@
     "build": "rm -rf lib && babel src -d lib --no-comments",
     "bundle": "webpack && webpack -p --output-filename mirror.min.js"
   },
-  "main": "./lib/index.js",
   "keywords": [
     "framework",
     "react",
@@ -29,7 +28,6 @@
   "dependencies": {
     "history": "^4.7.2",
     "react-redux": "^5.0.6",
-    "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.6.0"
@@ -59,6 +57,8 @@
   "files": [
     "lib/",
     "docs/",
+    "index.js",
+    "router.js",
     "README.md",
     "LICENSE"
   ],

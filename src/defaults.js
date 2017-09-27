@@ -1,7 +1,7 @@
 import { effects, addEffect } from './effects'
 
 export const options = {
-  // global initial state
+  // Global initial state
   // initialState: undefined,
 
   // Should be one of ['browser', 'hash', 'memory']

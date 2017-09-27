@@ -43,7 +43,8 @@ if (process.env.NODE_ENV === 'production') {
   // Exclude react and react-dom in the production bundle
   config.externals = {
     'react': 'React',
-    'react-dom': 'ReactDOM'
+    'react-dom': 'ReactDOM',
+    'prop-types': 'PropTypes'
   }
 
 } else {

@@ -4,17 +4,14 @@ import {
   combineReducers,
   compose
 } from 'redux'
-import { routerReducer } from 'react-router-redux'
 
 import createMiddleware from './middleware'
-import routerMiddleware from './routerMiddleware'
 
 export let store
 
 export function createStore(models, reducers, initialState, middlewares = []) {
 
   const middleware = applyMiddleware(
-    routerMiddleware(),
     ...middlewares,
     createMiddleware()
   )
@@ -52,10 +49,14 @@ function createReducer(models, reducers) {
     return acc
   }, {})
 
-  return combineReducers({
+  const finalReducers = {
     ...reducers,
-    ...modelReducers,
-    routing: routerReducer
-  })
+    ...modelReducers
+  }
 
+  if (!Object.keys(finalReducers).length) {
+    return noop => noop
+  }
+
+  return combineReducers(finalReducers)
 }

@@ -60,7 +60,7 @@ describe('create store', () => {
 
     const store = createStore([model])
 
-    expect(store.getState().app).toEqual(null)
+    expect(store.getState()).toEqual({ app: null })
   })
 
   it('should update redux store by raw dispatch', () => {

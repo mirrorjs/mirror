@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import mirror, { actions, render, Router } from 'index'
-import { history } from 'router'
+import mirror, { actions, render } from 'index'
+import { store } from 'store'
+import Router from 'router/Router'
 
 beforeEach(() => {
   jest.resetModules()
@@ -28,7 +29,7 @@ describe('the enhanced Router', () => {
   })
 
 
-  it('should pass history to Router', () => {
+  it('should create history to Router', () => {
 
     const container = document.createElement('div')
 
@@ -39,7 +40,7 @@ describe('the enhanced Router', () => {
       container
     )
 
-    expect(rootContext.router.history).toBe(history)
+    expect(rootContext.router.history).toBeDefined()
   })
 
   it('should add navigation methods of history object to actions.routing', () => {
@@ -85,6 +86,23 @@ describe('the enhanced Router', () => {
     actions.routing.push('/new')
 
     expect(rootContext.router.route.match.isExact).toBe(false)
+  })
+
+  it('should update store when route change', () => {
+
+    const container = document.createElement('div')
+
+    render(
+      <Router>
+        <ContextChecker/>
+      </Router>,
+      container
+    )
+
+    const state = store.getState()
+
+    expect(state).toHaveProperty('routing')
+    expect(state.routing).toHaveProperty('location.pathname', '/')
   })
 
   it('should be ok if pass an history object', () => {

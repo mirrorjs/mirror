@@ -1,5 +1,5 @@
 
-## [v0.2.8](https://github.com/mirrorjs/mirror/compare/v0.2.7...v0.2.8)
+## [v0.2.9](https://github.com/mirrorjs/mirror/compare/v0.2.7...v0.2.9)
 
 > 2017-10-19
 

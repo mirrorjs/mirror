@@ -115,6 +115,10 @@ render(<App/>, document.getElementById('root'))
 * [Simple-Router](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router)
 * [Todo](https://github.com/mirrorjs/mirror/blob/master/examples/todo)
 
+## 更新日志
+
+查看 [CHANGES.md](https://github.com/mirrorjs/mirror/blob/master/CHANGES.md).
+
 ## FAQ
 
 #### 是否支持 [Redux DevTools 扩展](https://github.com/zalmoxisus/redux-devtools-extension)？

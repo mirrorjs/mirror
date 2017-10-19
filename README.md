@@ -117,6 +117,9 @@ See [API Reference](https://github.com/mirrorjs/mirror/blob/master/docs/api.md).
 * [Simple-Router](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router)
 * [Todo](https://github.com/mirrorjs/mirror/blob/master/examples/todo)
 
+## Change log
+
+See [CHANGES.md](https://github.com/mirrorjs/mirror/blob/master/CHANGES.md).
 
 ## FAQ
 

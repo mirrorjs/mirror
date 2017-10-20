@@ -1,6 +1,6 @@
 {
   "name": "mirrorx",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "A React framework with minimal API and zero boilerplate.",
   "scripts": {
     "test": "jest",
@@ -31,7 +31,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-router-redux": "^5.0.0-alpha.6",
+    "react-router-redux": "^5.0.0-alpha.8",
     "redux": "^3.6.0"
   },
   "peerDependencies": {

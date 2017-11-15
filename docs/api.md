@@ -338,7 +338,7 @@ mirror.model({
   name: 'b',
   effects: {
     async foo(state, data) {
-      const res = await Promise.resole(data)
+      const res = await Promise.resolve(data)
       // update state of model `a`
       actions.a.add(data)
     },

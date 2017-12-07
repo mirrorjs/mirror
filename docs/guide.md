@@ -20,6 +20,39 @@ Mirror follows the exact way how [react-router 4.x](https://github.com/ReactTrai
 
 Calling methods in [`actions.routing`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#-actionsrouting) object will change the location. After changing, a `@@router/LOCATION_CHANGE` action will be dispatched.
 
+> If the routes are nested in the router , and you want to **connect** the component of the routes to listen some change in **store**. You may find that the routes render could not be triggered. The reason is that the nested routes can't find the router context from the parent component. The solution is:
+> 
+> ```
+>  import React, { Component } from 'react'
+>  import { withRouter, connect, render } from 'mirrorx'
+> 
+> 
+>  render(<Router basename="/" hashType="hashbang">
+>         <Root/>
+>       </Router>,document.getElementById('root'))
+> 
+>  // ...
+>  class App extends Component {
+>   render () {
+>     return (
+>       ...<div>
+>           <Switch>
+>             <Route path='/' exact component={Home}/>
+>             <Route path='/sites' component={Sites}/>
+>             <Route path='/setting' component={Setting}/>
+>           </Switch>
+>         </div>
+>       ...
+>     )
+>   }
+> }
+> 
+> const Root = withRouter(connect(state => { return {somestate: state.somestate}; })(App))
+> ```
+> 
+> The same issue which you can also check in [React Router 4 (beta 8) won't render components if using redux connect #4671](https://github.com/ReactTraining/react-router/issues/4671).
+
+
 #### Rendering
 
 The [`render`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md##rendercomponent-container) API will start your app: create the `Redux` store and render your component to the DOM. Calling `render` after app is started will replace reducer of your store and re-render your component.
@@ -27,39 +60,3 @@ The [`render`](https://github.com/mirrorjs/mirror/blob/master/docs/api.md##rende
 #### Hooks
 
 A [hook](https://github.com/mirrorjs/mirror/blob/master/docs/api.md#mirrorhookaction-getstate--) is a listener subscribes to every `action` you dispatched. For example, if you want to monitor location changes, you can hook the actions whose type is `@@router/LOCATION_CHANGE` by `mirror.hook`.
-
-#### Tips
-
-If the routes are nested in the router , and you want to ** connect ** the component of the routes to listen some change in ths ** store ** . You may find that the routes render could not be triggered. The reason is that the nested routes can`t find the router context from the parent component. so the solution is below:
-```
- import React, { Component } from 'react';
- import { withRouter,connect,render } from 'mirror';
-
-
- render(<Router basename="/" hashType="hashbang">
-        <Root/>
-      </Router>,document.getElementById('root'));
-
-
- class App extends Component {
-  render () {
-    return (
-      ...<div>
-          <Switch>
-            <Route path='/' exact component={Home}/>
-            <Route path='/sites' component={Sites}/>
-            <Route path='/setting' component={Setting}/>
-          </Switch>
-        </div>
-      ...
-    );
-  }
-}
-
-const Root = withRouter(connect(state => { return {somestate: state.somestate}; })(App));
-
-```
-
-The same issue which you can also check in [react-router](React Router 4 (beta 8) won't render components if using redux connect).
-
-

@@ -21,6 +21,37 @@ Mirror 完全按照 [react-router 4.x](https://github.com/ReactTraining/react-ro
 
 在全局的 `actions` 上，Mirror 为你提供了一个 [`actions.routing`](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md#-actionsrouting) 对象，调用这个对象上的方法，即可手动更新 location，并且与 `store` 同步。location 更新后，一个 type 为 `@@router/LOCATION_CHANGE` 的 action 会被 dispatch。
 
+> 如果 **route** 组件是 与 **router** 存在嵌套关系，但你的 **route 层的组件** 又 **connect** 了 **store** 订阅了某些 **state**。当你去触发路由跳转的时候，你会发现并没有触发路由的**render**。原因是：一旦子路由被嵌套了，子路由无法获取 router 的 context 上的 props 了。解决方法如下：
+>
+> ```
+>  import React, { Component } from 'react'
+>  import { withRouter, connect, render } from 'mirrorx'
+> 
+> 
+>  render(<Router basename="/" hashType="hashbang">
+>         <Root/>
+>       </Router>,document.getElementById('root'))
+> 
+>  // ...
+>  class App extends Component {
+>   render () {
+>     return (
+>       ...<div>
+>           <Switch>
+>             <Route path='/' exact component={Home}/>
+>             <Route path='/sites' component={Sites}/>
+>             <Route path='/setting' component={Setting}/>
+>           </Switch>
+>         </div>
+>       ...
+>     )
+>   }
+> }
+> 
+> const Root = withRouter(connect(state => { return {somestate: state.somestate}; })(App))
+> ```
+>
+> 对应的 issue 可以在参看这里：[React Router 4 (beta 8) won't render components if using redux connect #4671](https://github.com/ReactTraining/react-router/issues/4671)。
 
 #### 启动和渲染
 
@@ -30,36 +61,3 @@ Mirror 完全按照 [react-router 4.x](https://github.com/ReactTraining/react-ro
 
 可以将 [hook](https://github.com/mirrorjs/mirror/blob/master/docs/zh/api.md#mirrorhookaction-getstate--) 理解为监听每一个被 dispatch 的 action 的 listener，并且这个 listener 是可以随时取消的。假设你希望监控每一次 location 的变化，那么你可以通过 `mirror.hook` 接口去检测 type 为 `@@router/LOCATION_CHANGE` 的 action。
 
-#### 提示
-
-如果 **routes** 的组件是 与 **router** 存在嵌套关系，但你的 **routes层的组件** 又 **connect** 了 **store** 订阅了某些 **state**. 当你去触发路由跳转的时候，你会发现并没有触发路由的**render**。原因是：一旦子路由被嵌套了，子路由无法获取router的context上的props了。解决方法如下：
-```
- import React, { Component } from 'react';
- import { withRouter,connect,render } from 'mirror';
-
-
- render(<Router basename="/" hashType="hashbang">
-        <Root/>
-      </Router>,document.getElementById('root'));
-
-
- class App extends Component {
-  render () {
-    return (
-      ...<div>
-          <Switch>
-            <Route path='/' exact component={Home}/>
-            <Route path='/sites' component={Sites}/>
-            <Route path='/setting' component={Setting}/>
-          </Switch>
-        </div>
-      ...
-    );
-  }
-}
-
-const Root = withRouter(connect(state => { return {somestate: state.somestate}; })(App));
-
-```
-
-对应的 issue 也能在react-router中能找见。[react-router](React Router 4 (beta 8) won't render components if using redux connect).

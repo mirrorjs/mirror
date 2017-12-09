@@ -489,6 +489,11 @@ mirror.defaults({
 
 > 注意：`connect` 过的组件，如果没有指定 `mapDispatchToProps`，那么该组件的 `props` 会有一个 `dispatch` 方法，Mirror 保留了这个逻辑。这样，你就可以通过 [`mirror.defaults`](#mirrordefaultsoptions) 接口指定一些 middleware，然后拿到 dispatch 方法来使用它们。不过，这是唯一你需要手动 dispatch action 的情况，在其他所有情况下，你都应该使用全局 `actions` 上的方法来 dispatch action。
 
+### clear([modelName])
+`clear`方法主要用于快速的让你的某一个model的state数据恢复到默认的状态下，事实上这样的场景很多，我们可能经常会遭遇到某些当数据与服务端交互完毕之后为了防止下一次使用这个model的时候依然有残留数据，对于ui的呈现来说不是很友好，所以我们需要清理一下state，在这种场景下十分的好用。当然，也并不希望大家滥用这个方法，事实上在大多数的场景下，你可能无须使用到这个函数，在使用这个函数的时候请想清楚你的这部分数据是否有清理的必要。
+
+`clear`函数的实现过程是：在你注册一个model的过程中，我会自动为你注册的model 追加一个全新的reducer，这个reducer的key是`$$mirror$$clear`，所以如果你的log中出现了这样的reducer请不要惊讶，同时也希望你在编写model的时候尽可能的避开使用这个词。
+
 ### render([component], [container], [callback])
 
 Mirror 的 `render` 接口就是加强版的 [`ReactDOM.render`](https://facebook.github.io/react/docs/react-dom.html#render)，它会启动并渲染你的 Mirror app。

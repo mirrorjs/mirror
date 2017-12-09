@@ -5,7 +5,7 @@ const SEP = '/'
 
 export const actions = {}
 
-export function addActions(modelName, reducers = {}, effects = {}) {
+export function addActions(modelName, reducers, effects = {}) {
 
   actions[modelName] = actions[modelName] || {}
 
@@ -29,7 +29,7 @@ export function addActions(modelName, reducers = {}, effects = {}) {
   })
 }
 
-export function resolveReducers(modelName, reducers = {}) {
+export function resolveReducers(modelName, reducers) {
   return Object.keys(reducers).reduce((acc, cur) => {
     acc[`${modelName}${SEP}${cur}`] = reducers[cur]
     return acc

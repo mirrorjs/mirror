@@ -5,6 +5,7 @@ export const models = []
 
 export default function model(m) {
 
+  m = validateModel(m)
 
   const reducers = {
     $$mirror$$clear(state) {
@@ -12,9 +13,7 @@ export default function model(m) {
     }
   }
 
-  m.reducers = { ...m.reducers, ...reducers }
-
-  m = validateModel(m)
+  m.reducers = { ...m.reducers , ...reducers }
 
   const reducer = getReducer(resolveReducers(m.name, m.reducers), m.initialState)
 

@@ -48,7 +48,7 @@ describe('mirror.model', () => {
 
   it('models should be an array', () => {
     const mirror = require('index')
-    const { models } = require('model')
+    const {models} = require('model')
 
     expect(models).toBeInstanceOf(Array)
 
@@ -86,7 +86,8 @@ describe('mirror.model', () => {
     expect(() => {
       mirror.model({
         name: 'app',
-        reducers: () => {}
+        reducers: () => {
+        }
       })
     }).toThrow(errorReg)
 
@@ -119,7 +120,8 @@ describe('mirror.model', () => {
     expect(() => {
       mirror.model({
         name: 'app',
-        effects: () => {}
+        effects: () => {
+        }
       })
     }).toThrow(errorReg)
 
@@ -129,39 +131,6 @@ describe('mirror.model', () => {
         reducers: {}
       }).not.toThrow()
     })
-  })
-
-  it('do not add actions if reducers and effects are empty', () => {
-    const mirror = require('index')
-    const { actions } = mirror
-
-    mirror.model({
-      name: 'model1'
-    })
-
-    expect(actions).toEqual({})
-
-    mirror.model({
-      name: 'model2',
-      reducers: {}
-    })
-
-    expect(actions).toEqual({})
-
-    mirror.model({
-      name: 'model3',
-      effects: {}
-    })
-
-    expect(actions).toEqual({})
-
-    mirror.model({
-      name: 'model4',
-      effects: {},
-      reducers: {}
-    })
-
-    expect(actions).toEqual({})
   })
 
   it('throws if effect name is duplicated with action name', () => {
@@ -176,7 +145,8 @@ describe('mirror.model', () => {
           }
         },
         effects: {
-          async add() {}
+          async add() {
+          }
         }
       })
     }).toThrow(/Please select another name as effect name/)
@@ -184,9 +154,10 @@ describe('mirror.model', () => {
 
   it('should ignore non-function entries in reducers and effects', () => {
     const mirror = require('index')
-    const { actions } = mirror
+    const {actions} = mirror
 
-    const fn = () => {}
+    const fn = () => {
+    }
 
     mirror.model({
       name: 'model1',
@@ -195,7 +166,7 @@ describe('mirror.model', () => {
       }
     })
 
-    expect(actions).toEqual({})
+    expect(actions.model1.a).toEqual(undefined)
 
     mirror.model({
       name: 'model2',
@@ -204,7 +175,7 @@ describe('mirror.model', () => {
       }
     })
 
-    expect(actions).toEqual({})
+    expect(actions.model2.b).toEqual(undefined)
 
     mirror.model({
       name: 'model3',
@@ -219,6 +190,6 @@ describe('mirror.model', () => {
     })
 
     expect(actions.model3).toBeInstanceOf(Object)
-    expect(Object.keys(actions.model3)).toEqual(['add', 'plus'])
+    expect(Object.keys(actions.model3)).toEqual(['add', '$$mirror$$clear', 'plus'])
   })
 })

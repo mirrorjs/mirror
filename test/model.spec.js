@@ -48,7 +48,7 @@ describe('mirror.model', () => {
 
   it('models should be an array', () => {
     const mirror = require('index')
-    const {models} = require('model')
+    const { models } = require('model')
 
     expect(models).toBeInstanceOf(Array)
 
@@ -154,7 +154,7 @@ describe('mirror.model', () => {
 
   it('should ignore non-function entries in reducers and effects', () => {
     const mirror = require('index')
-    const {actions} = mirror
+    const { actions } = mirror
 
     const fn = () => {
     }

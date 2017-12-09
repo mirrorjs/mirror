@@ -7,7 +7,7 @@ export const actions = {}
 
 export function addActions(modelName, reducers = {}, effects = {}) {
 
-  if (Object.keys(reducers).length || Object.keys(effects).length) {
+  if (Object.keys(effects).length || Object.keys(reducers).length) {
     actions[modelName] = actions[modelName] || {}
   }
 

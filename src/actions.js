@@ -7,9 +7,7 @@ export const actions = {}
 
 export function addActions(modelName, reducers = {}, effects = {}) {
 
-  if (Object.keys(effects).length || Object.keys(reducers).length) {
-    actions[modelName] = actions[modelName] || {}
-  }
+  actions[modelName] = actions[modelName] || {}
 
   each(reducers, actionName => {
     // A single-argument function, whose argument is the payload data of a normal redux action,

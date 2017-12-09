@@ -7,6 +7,7 @@ import render from './render'
 import hook from './hook'
 import Router from './router'
 import defaults from './defaults'
+import { clear } from './clear'
 
 export default {
   model,
@@ -15,6 +16,7 @@ export default {
   defaults,
   connect,
   render,
+  clear,
 
   Router,
   Route,
@@ -33,6 +35,7 @@ export {
   defaults,
   connect,
   render,
+  clear,
 
   Router,
   Route,

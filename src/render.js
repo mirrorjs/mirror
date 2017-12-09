@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { options } from './defaults'
 import { models } from './model'
 import { store, createStore, replaceReducer } from './store'
+import { copyStore } from './clear'
 
 let started = false
 let Root
@@ -26,6 +27,7 @@ export default function render(component, container, callback) {
 
   } else {
     createStore(models, reducers, initialState, middlewares)
+    copyStore(store)
   }
 
   // Use named function get a proper displayName
@@ -38,6 +40,7 @@ export default function render(component, container, callback) {
   }
 
   started = true
+
 
   global.document && ReactDOM.render(<Root/>, container, callback)
 

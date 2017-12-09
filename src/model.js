@@ -1,8 +1,18 @@
 import { resolveReducers, addActions } from './actions'
+import { mirrorStoreState } from './clear'
 
 export const models = []
 
 export default function model(m) {
+
+
+  const reducers = {
+    $$mirror$$clear(state) {
+      return { ...state, ...mirrorStoreState[m.name] }
+    }
+  }
+
+  m.reducers = { ...m.reducers, ...reducers }
 
   m = validateModel(m)
 

@@ -121,6 +121,10 @@ render(<App/>, document.getElementById('root'))
 
 ## FAQ
 
+#### 是否支持 TypeScript？
+
+支持。
+
 #### 是否支持 [Redux DevTools 扩展](https://github.com/zalmoxisus/redux-devtools-extension)？
 
 支持。

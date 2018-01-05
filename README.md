@@ -123,9 +123,13 @@ See [CHANGES.md](https://github.com/mirrorjs/mirror/blob/master/CHANGES.md).
 
 ## FAQ
 
+#### Does Mirror support TypeScript?
+
+Yes, it does.
+
 #### Does Mirror support [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)?
 
-Yes.
+Yes, Mirror integrates Redux DevTools by default to make your debugging more easily.
 
 #### Can I use extra Redux middlewares?
 

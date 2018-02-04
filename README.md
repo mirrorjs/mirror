@@ -1,6 +1,6 @@
 # Mirror
 
-[![npm version](https://img.shields.io/npm/v/mirrorx.svg?colorB=007ec6&style=flat-square)](https://www.npmjs.com/package/mirrorx) [![build status](https://img.shields.io/travis/mirrorjs/mirror.svg?style=flat-square)](https://travis-ci.org/mirrorjs/mirror) [![coverage status](https://img.shields.io/coveralls/mirrorjs/mirror.svg?style=flat-square)](https://coveralls.io/github/mirrorjs/mirror?branch=master) [![license](https://img.shields.io/github/license/mashape/apistatus.svg)]()
+[![npm version](https://img.shields.io/npm/v/mirrorx.svg?colorB=007ec6&style=flat-square)](https://www.npmjs.com/package/mirrorx) [![build status](https://img.shields.io/travis/mirrorjs/mirror.svg?style=flat-square)](https://travis-ci.org/mirrorjs/mirror) [![coverage status](https://img.shields.io/coveralls/mirrorjs/mirror.svg?style=flat-square)](https://coveralls.io/github/mirrorjs/mirror?branch=master) [![license](https://img.shields.io/github/license/mirrorjs/mirror.svg?style=flat-square)](https://github.com/mirrorjs/mirror/blob/master/LICENSE)
 
 [查看中文](https://github.com/mirrorjs/mirror/blob/master/README_zh.md)
 

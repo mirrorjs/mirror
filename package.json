@@ -32,29 +32,30 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.9",
-    "redux": "^3.6.0"
+    "redux": "^4.0.0"
   },
   "peerDependencies": {
+    "prop-types": ">=15",
     "react": ">=15",
-    "react-dom": ">=15",
-    "prop-types": ">=15"
+    "react-dom": ">=15"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
     "babel-preset-es2015": "^6.14.1",
     "babel-preset-react": "^6.14.1",
     "babel-preset-stage-2": "^6.14.1",
-    "coveralls": "^2.13.3",
+    "coveralls": "^3.0.1",
     "eslint": "^4.19.1",
     "eslint-plugin-react": "^7.7.0",
-    "jest": "^20.0.4",
+    "jest": "^22.4.3",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
-    "webpack": "^3.11.0"
+    "webpack": "^4.6.0",
+    "webpack-cli": "^2.1.2"
   },
   "files": [
     "lib/",

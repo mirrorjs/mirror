@@ -30,7 +30,7 @@
 * 极简 API（只有 4 个新 API）
 * 易于上手
 * Redux action 从未如此简单
-* 支持动态创建 model
+* 支持 code splitting
 * 强大的 hook 机制
 
 ## 快速开始

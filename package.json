@@ -3,6 +3,7 @@
   "version": "0.2.11",
   "description": "A React framework with minimal API and zero boilerplate.",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",

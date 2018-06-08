@@ -32,7 +32,7 @@ That's exactly what Mirror does, encapsulates the tedious or repetitive work in 
 * Minimal API(only 4 newly introduced)
 * Easy to start
 * Actions done easy, sync or async
-* Support loading models dynamically
+* Support code splitting
 * Full-featured hook mechanism
 
 ## Getting Started

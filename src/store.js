@@ -4,17 +4,14 @@ import {
   combineReducers,
   compose
 } from 'redux'
-import { routerReducer } from 'react-router-redux'
 
 import createMiddleware from './middleware'
-import routerMiddleware from './routerMiddleware'
 
 export let store
 
 export function createStore(models, reducers, initialState, middlewares = []) {
 
   const middleware = applyMiddleware(
-    routerMiddleware(),
     ...middlewares,
     createMiddleware()
   )
@@ -25,12 +22,12 @@ export function createStore(models, reducers, initialState, middlewares = []) {
 
   // Following line to exclude from coverage report:
   /* istanbul ignore next */
-  if (process.env.NODE_ENV !== 'production') {
-    // Redux devtools extension support.
-    if (global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
-      composeEnhancers = global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    }
-  }
+  // if (process.env.NODE_ENV !== 'production') {
+  //   // Redux devtools extension support.
+  //   if (global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) {
+  //     composeEnhancers = global.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+  //   }
+  // }
 
   const reducer = createReducer(models, reducers)
   const enhancer = composeEnhancers(...enhancers)
@@ -55,7 +52,6 @@ function createReducer(models, reducers) {
   return combineReducers({
     ...reducers,
     ...modelReducers,
-    routing: routerReducer
   })
 
 }

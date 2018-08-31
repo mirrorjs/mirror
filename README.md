@@ -100,7 +100,7 @@ const App = connect(state => {
 render(<App />, document.getElementById('root'))
 ```
 
-### [Demo](https://www.webpackbin.com/bins/-Kmdm2zpS4JBvzbKBbIc)
+### [Demo](https://codesandbox.io/s/814mnvw1qj)
 
 ## Guide
 

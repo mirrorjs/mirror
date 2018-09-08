@@ -563,7 +563,7 @@ render(<App/>, document.getElementById('root'))
 </div>
 ```
 
-然后，假设你又顶一个 异步组件／model，可以通过类似 [react-loadable](https://github.com/jamiebuilds/react-loadable) 这样的库加载进来：
+然后，假设你又定义一个异步组件／model，可以通过类似 [react-loadable](https://github.com/jamiebuilds/react-loadable) 这样的库加载进来：
 
 ```js
 // asyncComponent.js

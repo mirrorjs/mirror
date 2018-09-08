@@ -1,4 +1,7 @@
+import React from 'react'
 import defaults, { options } from 'defaults'
+import { render } from 'index'
+import { store } from 'store'
 
 beforeEach(() => {
   jest.resetModules()
@@ -61,17 +64,25 @@ describe('mirror.defaults', () => {
   it('should update `options.reducers` if call defaults multiple times', () => {
     defaults({
       reducers: {
-        a: () => {}
+        a: () => 'a'
       }
     })
     expect(Object.keys(options.reducers)).toEqual(['a'])
 
+    const container = document.createElement('div')
+    render(<div/>, container)
+    expect(store.getState().a).toBe('a')
+
     defaults({
       reducers: {
-        b: () => {}
+        b: () => 'b'
       }
     })
     expect(Object.keys(options.reducers)).toEqual(['a', 'b'])
+
+    render()
+    expect(store.getState().b).toBe('b')
+
   })
 
   it('should ignore un-provided values for second and after calls', () => {

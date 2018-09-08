@@ -1,33 +1,25 @@
 import { resolveReducers, addActions } from './actions'
 
+const isObject = target => Object.prototype.toString.call(target) === '[object Object]'
+
 export const models = []
 
 export default function model(m) {
+  const { name, reducers, initialState, effects } = validateModel(m)
 
-  m = validateModel(m)
+  const reducer = getReducer(resolveReducers(name, reducers), initialState)
 
-  const reducer = getReducer(resolveReducers(m.name, m.reducers), m.initialState)
+  const toAdd = { name, reducer }
 
-  const _model = {
-    name: m.name,
-    reducer
-  }
+  models.push(toAdd)
 
-  models.push(_model)
+  addActions(name, reducers, effects)
 
-  addActions(m.name, m.reducers, m.effects)
-
-  return _model
+  return toAdd
 }
 
 function validateModel(m = {}) {
-  const {
-    name,
-    reducers,
-    effects
-  } = m
-
-  const isObject = target => Object.prototype.toString.call(target) === '[object Object]'
+  const { name, reducers, effects } = m
 
   if (!name || typeof name !== 'string') {
     throw new Error(`Model name must be a valid string!`)

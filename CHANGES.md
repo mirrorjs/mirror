@@ -1,3 +1,9 @@
+## [v0.2.12](https://github.com/mirrorjs/mirror/compare/v0.2.11...v0.2.12)
+
+> 2018-09-08
+
+* Allow `mirror.defaults` to  *merge* new Redux reducers into the previous ones.
+
 ## [v0.2.11](https://github.com/mirrorjs/mirror/compare/v0.2.10...v0.2.11)
 
 > 2018-05-04

@@ -409,6 +409,8 @@ countHook()
 
 `mirror.defaults` is a pretty intuitive API, you use it to configure your Mirror app.
 
+`mirror.defaults` can be called multiple times.
+
 #### * `options.initialState`
 
 * Default: `undefined`
@@ -470,6 +472,33 @@ mirror.defaults({
 })
 ```
 
+##### Update, not replace
+
+There's something special about `options.reducers`, that is its `key-value`s will be **merged** into the previous ones instead of replacing them, since you can call `mirror.defaults` multiple times. That's the case when you call it after your app has been [started](#rendercomponent-container-callback), for example:
+
+```js
+// after this call, your store will hava a standard reducer with namespace
+// of `a`
+mirror.defaults({
+  reducers: {
+    // standard Redux reducer
+    a: (state, data) => {}
+  }
+})
+
+// ...
+
+// then somewhere in your app, you can add other standard Redux reducers
+mirror.defaults({
+  reducers: {
+    // standard Redux reducer
+    b: (state, data) => {}
+  }
+})
+```
+
+After the second call, your store will have 2 reducers: `a` and `b`. 
+
 #### * `options.addEffect`
 
 * Default: `(effects) => (name, handler) => { effects[name] = handler }`
@@ -492,12 +521,15 @@ It first creates your `Redux` store, then renders your component to DOM using `R
 
 You can call `render` multiple times in your app. The first time being called, `render` will create a `Redux` store using all the `reducers` and `effects` you defined through `mirror.model` method. After that, all later calls will [replace your store's reducer](http://redux.js.org/docs/api/Store.html#replaceReducer) and re-render your app.
 
-What's the point of that? It allows you to inject models dynamically.
+What's the point of that? It allows you to inject models dynamically, it's very convenient for code-splitting.
+
+#### Update models on the fly
 
 For example, suppose you have an `app.js`:
 
 ```js
 // app.js
+
 import React from 'react'
 import mirror, {actions, connect, render} from 'mirrorx'
 
@@ -529,19 +561,31 @@ After `render`, your app will be rendered as:
 </div>
 ```
 
-Then, somewhere in you app, you define a model `bar`, or load it from a remote server:
+Then, suppose you have an async component/model which can be loaded by tools like [react-loadable](https://github.com/jamiebuilds/react-loadable):
 
 ```js
-// ...
+// asyncComponent.js
 
-// inject an async model, this will not trigger the re-render
+// inside this async component, you define an "async model"
 mirror.model({
   name: 'bar',
   initialState: 'state of bar'
 })
+```
 
-// this will do the re-render
-render()
+
+```js
+// app.js
+
+// ...
+
+// some where in your app, after loading above component and model,
+// call `render()` will "register" the async model and re-render your app.
+//
+// NOTE: the `load` function is NOT a real implementation, it's just psuedo code.
+load('ayncComponent.js').then(() => {
+  mirror.render()
+})
 ```
 
 **Calling `render` without arguments will re-render your app**. So above code will generate the following `html`:
@@ -553,6 +597,30 @@ render()
 + <div>state of bar</div>
 </div>
 ```
+
+#### Update standard reducers on the fly
+
+Plus, after the "async component/model" has been loaded, it's possible to call `mirorr.defaults` to add some standard Redux reducers on the fly:
+
+
+```js
+// app.js
+
+// NOTE: the `load` function is NOT a real implementation, it's just psuedo code.
+load('ayncComponent.js').then(() => {
+
+  // `MyAsyncReducer` will be **merged** into the existed ones, not replace them
+  mirror.defaults({
+    reducers: {
+      MyAsyncReducer: (state, data) => {},
+      // ...
+    }
+  })
+  
+  // do the re-render
+  mirror.render()
+})
+``` 
 
 This is very useful for large apps.
 

@@ -1,5 +1,9 @@
 import defaults, { options } from 'defaults'
 
+beforeEach(() => {
+  jest.resetModules()
+})
+
 describe('mirror.defaults', () => {
 
   it('options should be exported', () => {
@@ -52,6 +56,33 @@ describe('mirror.defaults', () => {
         addEffect: () => () => true
       })
     }).not.toThrow()
+  })
+
+  it('should update `options.reducers` if call defaults multiple times', () => {
+    defaults({
+      reducers: {
+        a: () => {}
+      }
+    })
+    expect(Object.keys(options.reducers)).toEqual(['a'])
+
+    defaults({
+      reducers: {
+        b: () => {}
+      }
+    })
+    expect(Object.keys(options.reducers)).toEqual(['a', 'b'])
+  })
+
+  it('should ignore un-provided values for second and after calls', () => {
+    defaults({
+      reducers: {},
+      historyMode: 'hash'
+    })
+    expect(options.historyMode).toBe('hash')
+
+    defaults({})
+    expect(options.historyMode).toBe('hash')
   })
 
 })

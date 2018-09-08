@@ -1,6 +1,6 @@
 {
   "name": "mirrorx",
-  "version": "0.2.11",
+  "version": "0.2.12",
   "description": "A React framework with minimal API and zero boilerplate.",
   "scripts": {
     "prepublishOnly": "npm run build",

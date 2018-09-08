@@ -473,6 +473,33 @@ mirror.defaults({
 })
 ```
 
+##### 更新，而不是替换
+
+`mirror.defautls` 可以调用多次，那么在后续的调用中，`options.reducers` 对象是被**更新**的，而不是被替换。也就是说，参数 `options.reducers` 中的 `key-value` 会被**合并**到之前的对象上去。例如：
+
+```js
+// 首次调用，store 中会有一个标准的 reducer 其命名空间为 `a`
+mirror.defaults({
+  reducers: {
+    // standard Redux reducer
+    a: (state, data) => {}
+  }
+})
+
+// ...
+
+// 然后在 app 的某个地方，你可以动态地增加标准 reducer
+mirror.defaults({
+  reducers: {
+    // standard Redux reducer
+    b: (state, data) => {}
+  }
+})
+```
+
+上述第二次的 `mirror.defaults` 调用，将会导致 store 中有 2 个标准 reducer：`a` 和 `b`。
+
+
 #### * `options.addEffect`
 
 * Default: `(effects) => (name, handler) => { effects[name] = handler }`
@@ -497,7 +524,9 @@ Mirror 的 `render` 接口就是加强版的 [`ReactDOM.render`](https://faceboo
 
 你可以在 app 中多次调用 `render`。第一次调用会使用 `mirror.model` 方法中定义的 reducer 和 effect 来创建 store。后续的调用将会 [使用 `replaceReducer` 替换 store 的 reducer](http://redux.js.org/docs/api/Store.html#replaceReducer)，并重新渲染整个 app。
 
-这样处理的意义是什么呢？就是你可以动态载入 model 了。
+这样处理的意义是什么呢？就是你可以动态载入 model 了，这对 code-splitting 非常有用。
+
+#### 动态加载 model
 
 举例来说，假如你有一个 `app.js`：
 
@@ -534,19 +563,30 @@ render(<App/>, document.getElementById('root'))
 </div>
 ```
 
-然后，你在 app 的某个地方，定义了一个 `bar` model，或者是通过 ajax 加载过来的：
+然后，假设你又顶一个 异步组件／model，可以通过类似 [react-loadable](https://github.com/jamiebuilds/react-loadable) 这样的库加载进来：
 
 ```js
-// ...
+// asyncComponent.js
 
-// 注入一个异步 model。注意这一步不会导致重新渲染
+// 在这个异步组件中，定义一个"异步 model"
 mirror.model({
   name: 'bar',
   initialState: 'state of bar'
 })
+```
 
-// 调用 render 后，会重新渲染
-render()
+```js
+// app.js
+
+// ...
+
+// 当加载完这个异步组件之后，调用 `render()` 将会“注册”其对应的异步 model，
+// 并重新渲染 app
+//
+// NOTE: 这里的 `load` 函数为伪代码
+load('ayncComponent.js').then(() => {
+  mirror.render()
+})
 ```
 
 **不传递参数调用 `render` 将会重新渲染你的 app**。所以上述代码将会生成以下 DOM 结构：
@@ -558,6 +598,29 @@ render()
 + <div>state of bar</div>
 </div>
 ```
+
+#### 动态加载标准 reducer
+
+另外，当加载完异步组件／model 之后，还可以通过调用 `mirror.defaults` 的方式更新标准的 Redux reducer：
+
+```js
+// app.js
+
+// NOTE: 这里的 `load` 函数为伪代码
+load('ayncComponent.js').then(() => {
+
+  // `MyAsyncReducer` 会被**合并**到之前指定的 reducer 中，而非替换它们
+  mirror.defaults({
+    reducers: {
+      MyAsyncReducer: (state, data) => {},
+      // ...
+    }
+  })
+  
+  // 重新渲染
+  mirror.render()
+})
+``` 
 
 这在大型 app 中非常有用。
 

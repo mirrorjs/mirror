@@ -27,6 +27,14 @@ export const options = {
 
 const historyModes = ['browser', 'hash', 'memory']
 
+// Can be called multiple times, ie. after load an async component that has
+// exported standard Redux `reducer`s that need to be `replaceReducer` for the
+// store.
+//
+// After the first time called, all later calls will try to *merge* `opts.reducers`
+// into the previous `options.reducers`, other keys like `historyMode` will be *updated*
+// if it is provided, otherwise it will be ignored, which means the previous values will
+// be kept.
 export default function defaults(opts = {}) {
 
   const {
@@ -53,6 +61,13 @@ export default function defaults(opts = {}) {
   }
 
   Object.keys(opts).forEach(key => {
-    options[key] = opts[key]
+    if (key === 'reducers') {
+      options[key] = {
+        ...options[key],
+        ...opts[key]
+      }
+    } else {
+      options[key] = opts[key]
+    }
   })
 }

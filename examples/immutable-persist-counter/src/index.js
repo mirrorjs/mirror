@@ -7,4 +7,4 @@ import { persist } from './persist'
 const callback = (createStore, reducer, initialState, enhancer) => (
   persist(createStore, reducer, initialState, enhancer))
 
-render(<App/>, document.getElementById('root'), callback)
+render(<App/>, document.getElementById('root'), null, callback)

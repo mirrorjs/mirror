@@ -11,7 +11,7 @@ import routerMiddleware from './routerMiddleware'
 
 export let store
 
-export function createStore(models, reducers, initialState, middlewares = []) {
+export function createStore(callback, models, reducers, initialState, middlewares = []) {
 
   const middleware = applyMiddleware(
     routerMiddleware(),
@@ -35,7 +35,7 @@ export function createStore(models, reducers, initialState, middlewares = []) {
   const reducer = createReducer(models, reducers)
   const enhancer = composeEnhancers(...enhancers)
 
-  store = _createStore(reducer, initialState, enhancer)
+  store = callback(_createStore, reducer, initialState, enhancer)
 
   return store
 }

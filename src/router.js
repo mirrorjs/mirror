@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import createBrowserHistory from 'history/createBrowserHistory'
-import createHashHistory from 'history/createHashHistory'
-import createMemoryHistory from 'history/createMemoryHistory'
+import createBrowserHistory from 'history'
+import createHashHistory from 'history'
+import createMemoryHistory from 'history'
 import { ConnectedRouter, routerActions } from 'react-router-redux'
 
 import { options } from './defaults'
@@ -48,9 +48,9 @@ function createHistory(props) {
   const { historyMode } = options
 
   const historyModes = {
-    browser: createBrowserHistory,
-    hash: createHashHistory,
-    memory: createMemoryHistory,
+    browser: createBrowserHistory.createBrowserHistory,
+    hash: createHashHistory.createHashHistory,
+    memory: createMemoryHistory.createMemoryHistory,
   }
 
   history = historyModes[historyMode](props)

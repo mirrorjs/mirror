@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import createBrowserHistory from 'history/createBrowserHistory'
-import createHashHistory from 'history/createHashHistory'
-import createMemoryHistory from 'history/createMemoryHistory'
+import { createBrowserHistory, createHashHistory, createMemoryHistory } from 'history'
 import { ConnectedRouter, routerActions } from 'react-router-redux'
 
 import { options } from './defaults'

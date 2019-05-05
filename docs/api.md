@@ -16,6 +16,8 @@
 * [connect](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [render](#rendercomponent-container-callback)
 * [Router](#router)
+* [toReducer](#toreducer)
+* [middleware](#middleware)
 
 ### mirror.model({name, initialState, reducers, effects})
 
@@ -679,3 +681,80 @@ render(
 
 For more details, checkout the [simple-router example](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router), and [react-router Docs](https://github.com/ReactTraining/react-router/tree/master/packages/react-router).
 
+### toReducer()
+> Since `1.0.0`
+
+A method transforms all 'models' defined by [`mirror.model`](#mirrormodelname-initialstate-reducers-effects) to one single standard Redux reducer. In case you do not want the `render` part of mirrorx, you can use `toReducer` to get the reducer to create your own store by hand.
+
+For example:
+
+```js
+import { createStore } from 'redux'
+import mirror, { actions } from 'mirrorx'
+
+mirror.model({
+  initialState: 0,
+  name: 'count',
+  reducers: {
+    increment(state) {
+      return state + 1
+    },
+    decrement(state) {
+      return state - 1
+    },
+    add(state, data) {
+      return state + data
+    }
+  }
+})
+
+// will create a reducer for all currently defined models
+const reducer = mirror.toReducer()
+
+const store = createStore(reducer)
+
+store.getState()
+// 0
+
+store.dispatch({ type: 'count/increment' })
+store.getState()
+// 1
+```
+
+But, if you try to dispatch actions by `actions.count.increment()`, an error will occur:
+
+```js
+// ...
+
+actions.count.increment()
+// Error: You are calling "dispatch" or "getState" without applying mirrorMiddleware! Please create your store with mirrorMiddleware first!
+```
+
+In this case you'll have to apply the middleware provided by mirorrx to use [`actions`](#actions), see [below](#middleware) for more details.
+
+### middleware
+> Since `1.0.0`
+
+A Redux middleware that makes [`actions`](#actions) and [`effects`](#-effects) possible, it MUST be applied if you want both manually created store and the handy `actions`:
+
+```js
+import { createStore } from 'redux'
+import mirror, { actions, middleware } from 'mirrorx'
+
+mirror.model({
+  initialState: 0,
+  name: 'count',
+  reducers: {
+    add(state, data) {
+      return state + data
+    }
+  }
+})
+
+const reducer = mirror.toReducer()
+
+const store = createStore(reducer, applyMiddleware(middleware))
+
+actions.count.add(10)
+// 10
+```

@@ -1,6 +1,6 @@
 {
   "name": "mirrorx",
-  "version": "0.2.13",
+  "version": "1.0.0",
   "description": "A React framework with minimal API and zero boilerplate.",
   "scripts": {
     "prepublishOnly": "npm run build",
@@ -10,7 +10,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls",
     "lint": "eslint src test",
     "build": "rm -rf lib && babel src -d lib --no-comments",
-    "bundle": "webpack && webpack -p --output-filename mirror.min.js"
+    "bundle": "webpack -p"
   },
   "main": "./lib/index.js",
   "keywords": [
@@ -43,15 +43,17 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.0.0",
+    "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/preset-env": "^7.0.0",
     "@babel/preset-react": "^7.0.0",
-    "babel-core": "^7.0.0-0",
     "babel-eslint": "^9.0.0",
+    "babel-jest": "^24.6.0",
     "babel-loader": "^8.0.0",
     "coveralls": "^3.0.2",
     "eslint": "^5.5.0",
     "eslint-plugin-react": "^7.11.1",
-    "jest": "^23.6.0",
+    "jest": "^24.6.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.0",
     "react-dom": "^16.5.0",

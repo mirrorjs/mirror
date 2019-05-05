@@ -89,7 +89,7 @@ describe('the enhanced Router', () => {
 
   it('should be ok if pass an history object', () => {
 
-    const createHashHistory = require('history/createHashHistory').default
+    const createHashHistory = require('history').createHashHistory
     const _history = createHashHistory()
 
     const container = document.createElement('div')

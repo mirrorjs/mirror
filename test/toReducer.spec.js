@@ -68,7 +68,7 @@ describe('mirror.toReducer', () => {
         }
       },
       effects: {
-        addAsync(data, getState) {
+        addAsync(data) {
           setTimeout(() => {
             actions.count.add(data)
           }, 1000)

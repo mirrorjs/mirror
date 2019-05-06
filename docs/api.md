@@ -740,7 +740,7 @@ In this case you'll have to apply the middleware provided by mirorrx to use [`ac
 A Redux middleware that makes [`actions`](#actions) and [`effects`](#-effects) possible, it MUST be applied if you want both manually created store and the handy `actions`:
 
 ```js
-import { createStore, combineReducers } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import mirror, { actions, middleware } from 'mirrorx'
 
 mirror.model({

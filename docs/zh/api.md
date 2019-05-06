@@ -741,7 +741,7 @@ actions.count.increment()
 一个 Redux middleware，它是 [`actions`](#actions) 和 [`effects`](#-effects) 能够工作的原因。如果你同时想自己创建 store 和使用方便的 `actions`，那么**必须**要应用此 `middleware`（通过 `applyMiddleware`）：
 
 ```js
-import { createStore, combineReducers } from 'redux'
+import { createStore, applyMiddleware, combineReducers } from 'redux'
 import mirror, { actions, middleware } from 'mirrorx'
 
 mirror.model({

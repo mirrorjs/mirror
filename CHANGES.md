@@ -1,8 +1,12 @@
-## [v1.0.0](https://github.com/mirrorjs/mirror/compare/v0.2.13...v1.0.0)
+## [v1.1.0](https://github.com/mirrorjs/mirror/compare/v0.2.13...v1.1.0)
 
 > 2019-05-06
 
-* Add [`toReducer`](docs/api.md#toreducer) and [`middleware`](docs/api.md#middleware).
+* Add [`toReducers`](docs/api.md#toreducers) and [`middleware`](docs/api.md#middleware).
+
+## ~~v1.0.0~~
+
+*Deprecated.*
 
 ## [v0.2.13](https://github.com/mirrorjs/mirror/compare/v0.2.12...v0.2.13)
 

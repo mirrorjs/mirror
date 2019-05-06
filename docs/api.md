@@ -16,7 +16,7 @@
 * [connect](#connectmapstatetoprops-mapdispatchtoprops-mergeprops-options)
 * [render](#rendercomponent-container-callback)
 * [Router](#router)
-* [toReducer](#toreducer)
+* [toReducers](#toreducers)
 * [middleware](#middleware)
 
 ### mirror.model({name, initialState, reducers, effects})
@@ -681,15 +681,15 @@ render(
 
 For more details, checkout the [simple-router example](https://github.com/mirrorjs/mirror/blob/master/examples/simple-router), and [react-router Docs](https://github.com/ReactTraining/react-router/tree/master/packages/react-router).
 
-### toReducer()
-> Since `1.0.0`
+### toReducers()
+> Since `1.1.0`
 
-A method transforms all 'models' defined by [`mirror.model`](#mirrormodelname-initialstate-reducers-effects) to one single standard Redux reducer. In case you do not want the `render` part of mirrorx, you can use `toReducer` to get the reducer to create your own store by hand.
+A method transforms all 'models' defined by [`mirror.model`](#mirrormodelname-initialstate-reducers-effects) to an object of standard Redux reducers, which can be directly handled by [`combineReducers`](http://redux.js.org/docs/api/combineReducers.html). In case you do not want the `render` part of mirrorx, you can use `toReducers` to get the reducer to create your own store by hand.
 
 For example:
 
 ```js
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import mirror, { actions } from 'mirrorx'
 
 mirror.model({
@@ -708,9 +708,11 @@ mirror.model({
   }
 })
 
-// will create a reducer for all currently defined models
-const reducer = mirror.toReducer()
+// `toReducers()` will generate an object whose keys are model names and values are corresponding reducers,
+// then combine them by `combineReducers` will create a single reducer to be used to create the store.
+const reducer = combineReducers(mirror.toReducers())
 
+// create the store
 const store = createStore(reducer)
 
 store.getState()
@@ -733,12 +735,12 @@ actions.count.increment()
 In this case you'll have to apply the middleware provided by mirorrx to use [`actions`](#actions), see [below](#middleware) for more details.
 
 ### middleware
-> Since `1.0.0`
+> Since `1.1.0`
 
 A Redux middleware that makes [`actions`](#actions) and [`effects`](#-effects) possible, it MUST be applied if you want both manually created store and the handy `actions`:
 
 ```js
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 import mirror, { actions, middleware } from 'mirrorx'
 
 mirror.model({
@@ -751,8 +753,9 @@ mirror.model({
   }
 })
 
-const reducer = mirror.toReducer()
+const reducer = combineReducers(mirror.toReducers())
 
+// create the store with middleware applied
 const store = createStore(reducer, applyMiddleware(middleware))
 
 actions.count.add(10)

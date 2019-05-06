@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
 
 beforeEach(() => {
   jest.resetModules()
@@ -7,19 +7,18 @@ beforeEach(() => {
 // use jest fake timers
 jest.useFakeTimers()
 
-describe('mirror.toReducer', () => {
+describe('mirror.toReducers', () => {
 
   it('should return void reducer when no model reducers', () => {
     const mirror = require('index')
 
-    expect(mirror.toReducer()).toBeInstanceOf(Function)
-    expect(mirror.toReducer()(0)).toBe(0)
+    expect(mirror.toReducers()).toEqual({})
 
     mirror.model({
       name: 'app'
     })
 
-    expect(mirror.toReducer()).toBeInstanceOf(Function)
+    expect(mirror.toReducers().app).toBeInstanceOf(Function)
   })
 
   it('should return a standard reducer', () => {
@@ -41,7 +40,7 @@ describe('mirror.toReducer', () => {
       }
     })
 
-    const reducer = mirror.toReducer()
+    const reducer = combineReducers(mirror.toReducers())
 
     const store = createStore(reducer)
 
@@ -76,7 +75,7 @@ describe('mirror.toReducer', () => {
       }
     })
 
-    const reducer = mirror.toReducer()
+    const reducer = combineReducers(mirror.toReducers())
 
     const store = createStore(reducer, applyMiddleware(middleware))
 

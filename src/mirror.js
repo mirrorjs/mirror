@@ -8,7 +8,7 @@ import hook from './hook'
 import Router from './router'
 import defaults from './defaults'
 import createMiddleware from './middleware'
-import toReducer from './toReducer'
+import toReducers from './toReducers'
 
 const middleware = createMiddleware()
 
@@ -20,7 +20,7 @@ export {
   connect,
   render,
   middleware,
-  toReducer,
+  toReducers,
 
   Router,
   Route,

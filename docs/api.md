@@ -759,5 +759,6 @@ const reducer = combineReducers(mirror.toReducers())
 const store = createStore(reducer, applyMiddleware(middleware))
 
 actions.count.add(10)
+store.getState()
 // 10
 ```

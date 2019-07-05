@@ -584,7 +584,7 @@ mirror.model({
 // some where in your app, after loading above component and model,
 // call `render()` will "register" the async model and re-render your app.
 //
-// NOTE: the `load` function is NOT a real implementation, it's just psuedo code.
+// NOTE: the `load` function is NOT a real implementation, it's just pseudo code.
 load('ayncComponent.js').then(() => {
   mirror.render()
 })
@@ -608,7 +608,7 @@ Plus, after the "async component/model" has been loaded, it's possible to call `
 ```js
 // app.js
 
-// NOTE: the `load` function is NOT a real implementation, it's just psuedo code.
+// NOTE: the `load` function is NOT a real implementation, it's just pseudo code.
 load('ayncComponent.js').then(() => {
 
   // `MyAsyncReducer` will be **merged** into the existed ones, not replace them

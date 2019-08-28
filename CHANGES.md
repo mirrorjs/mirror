@@ -1,3 +1,9 @@
+## [v1.1.0](https://github.com/mirrorjs/mirror/compare/v1.1.0...v1.1.1)
+
+> 2019-08-28
+
+* Update some dependencies.
+
 ## [v1.1.0](https://github.com/mirrorjs/mirror/compare/v0.2.13...v1.1.0)
 
 > 2019-05-06

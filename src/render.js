@@ -43,3 +43,25 @@ export default function render(component, container, callback) {
 
   return Root
 }
+
+
+export function RootProvider(props) {
+  const { initialState, middlewares, reducers } = options
+  if (started) {
+    replaceReducer(store, models, reducers)
+    if (arguments.length === 0) {
+      return <Root/>
+    }
+  } else {
+    createStore(models, reducers, initialState, middlewares)
+  }
+  Root = function Root() {
+    return (
+      <Provider store={store}>
+        {props.children}
+      </Provider>
+    )
+  }
+  started = true
+  return <Root/>
+}

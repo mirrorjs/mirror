@@ -9,7 +9,10 @@ import { store, createStore, replaceReducer } from './store'
 let started = false
 let Root
 
-export default function render(component, container, callback) {
+const defaultCallback =
+  (createStore, rootReducer, initialState, enhancer) => createStore(rootReducer, initialState, enhancer)
+
+export default function render(component, container, callback, cb) {
 
   const { initialState, middlewares, reducers } = options
 
@@ -25,14 +28,15 @@ export default function render(component, container, callback) {
     }
 
   } else {
-    createStore(models, reducers, initialState, middlewares)
+    let _callback = (typeof cb === 'undefined') ? defaultCallback : cb
+    createStore(_callback, models, reducers, initialState, middlewares)
   }
 
   // Use named function get a proper displayName
   Root = function Root() {
     return (
       <Provider store={store}>
-        {component}
+        {(typeof component) === 'function' ? component() : component}
       </Provider>
     )
   }
